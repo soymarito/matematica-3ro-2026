@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática 3° Año · Compensación 2° Cuatrimestre & Diciembre 2026</title>
+<style>
+  :root {
+    --bg: #0b1120;
+    --bg2: #111827;
+    --card: #162033;
+    --card2: #1e293b;
+    --border: #2c3e5a;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --indigo: #818cf8;
+    --emerald: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --purple: #c084fc;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: radial-gradient(circle at top right, #172554 0%, var(--bg) 52%);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+    line-height: 1.55;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1180px; margin: 0 auto; padding: 14px 16px 48px; }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 55%, #0c4a6e 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .hero-top { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(251, 113, 133, 0.16);
+    border: 1px solid rgba(251, 113, 133, 0.45);
+    color: #fecdd3;
+    padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  h1 { margin: 0 0 4px; font-size: clamp(1.3rem, 2.5vw, 1.85rem); color: #ffffff; letter-spacing: -0.02em; }
+  .hero-sub { margin: 0; color: #cbd5e1; font-size: 0.92rem; }
+  .kpi-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .kpi {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 13px;
+    min-width: 132px;
+  }
+  .kpi-lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .kpi-val { font-size: 1.05rem; font-weight: 800; color: var(--accent); }
+
+  /* Controls Bar (sticky desktop, static mobile) */
+  .controls-bar {
+    position: sticky; top: 8px; z-index: 40;
+    background: rgba(15, 23, 42, 0.93);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
+    margin-bottom: 16px;
+  }
+  .mode-row {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; padding-bottom: 9px; border-bottom: 1px solid rgba(148,163,184,0.18);
+  }
+  .mode-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mode-btn {
+    border: 1px solid var(--border);
+    background: var(--card2);
+    color: #cbd5e1;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .mode-btn:hover { border-color: var(--accent); color: #fff; }
+  .mode-btn.active {
+    background: linear-gradient(135deg, #be123c, #e11d48);
+    border-color: #fda4af;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(225, 29, 72, .35);
+  }
+  .mode-btn.active.dic {
+    background: linear-gradient(135deg, #0369a1, #0284c7);
+    border-color: #7dd3fc;
+    box-shadow: 0 0 12px rgba(2, 132, 199, .35);
+  }
+  .mode-btn.active.todo {
+    background: linear-gradient(135deg, #4338ca, #6366f1);
+    border-color: #a5b4fc;
+    box-shadow: 0 0 12px rgba(99, 102, 241, .35);
+  }
+  .mode-hint { font-size: 0.8rem; color: #bae6fd; font-weight: 600; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tab-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: #cbd5e1;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: #fff; transform: translateY(-1px); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    border-color: #7dd3fc;
+    color: #fff;
+  }
+
+  /* Panels & Cards */
+  .tab-panel { display: none; animation: fadeIn .2s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.22);
+  }
+  .card h2 { margin: 0 0 8px; font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card h3 { margin: 14px 0 8px; font-size: 1.02rem; color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+
+  .pill {
+    display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+    background: rgba(56, 189, 248, .15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, .35);
+  }
+  .pill.urgent { background: rgba(251, 113, 133, .16); color: #fecdd3; border-color: rgba(251, 113, 133, .4); }
+  .pill.ok { background: rgba(52, 211, 153, .16); color: #a7f3d0; border-color: rgba(52, 211, 153, .4); }
+  .pill.warn { background: rgba(251, 191, 36, .16); color: #fde68a; border-color: rgba(251, 191, 36, .4); }
+
+  .callout {
+    border-left: 4px solid var(--accent);
+    background: rgba(15, 23, 42, .65);
+    border-radius: 0 10px 10px 0;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.92rem;
+  }
+  .callout.urgent { border-left-color: var(--rose); background: rgba(136, 19, 55, .2); }
+  .callout.warn { border-left-color: var(--amber); background: rgba(120, 53, 15, .2); }
+  .callout.ok { border-left-color: var(--emerald); background: rgba(6, 78, 59, .22); }
+
+  /* Math Typography */
+  .math {
+    font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+    font-size: 1.07em;
+    letter-spacing: 0.01em;
+    color: #f8fafc;
+  }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    line-height: 1.08;
+    font-size: 0.9em;
+  }
+  .frac .num { border-bottom: 1.5px solid currentColor; padding: 0 4px 1px; }
+  .frac .den { padding: 1px 4px 0; }
+  .per {
+    display: inline-block;
+    border-top: 2px solid var(--amber);
+    border-radius: 6px 6px 0 0;
+    padding: 0 2px;
+    line-height: 1.05;
+    margin-left: 1px;
+  }
+  .rad {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+  .rad-sym { font-size: 1.15em; margin-right: 1px; }
+  .rad-idx { font-size: 0.7em; vertical-align: super; margin-right: -2px; font-weight: 700; color: var(--amber); }
+  .rad-body { border-top: 1.5px solid currentColor; padding: 1px 4px 0; display: inline-block; }
+
+  .formula-box {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    overflow-x: auto;
+  }
+  .step-line {
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: rgba(30, 41, 59, .55);
+    margin: 4px 0;
+    border-left: 3px solid var(--indigo);
+  }
+
+  /* Tables */
+  table.clean {
+    width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.87rem;
+  }
+  table.clean th, table.clean td {
+    border: 1px solid var(--border); padding: 7px 9px; text-align: left; vertical-align: middle;
+  }
+  table.clean th { background: #0f172a; color: #7dd3fc; font-weight: 700; }
+  table.clean tr:nth-child(even) td { background: rgba(15, 23, 42, .38); }
+  .table-wrap { overflow-x: auto; }
+
+  /* Interactive inputs & buttons */
+  .btn {
+    border: 1px solid #38bdf8;
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    color: #fff; border-radius: 9px; padding: 8px 14px;
+    font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: .15s;
+  }
+  .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn.sec {
+    background: var(--card2); border-color: var(--border); color: #e2e8f0;
+  }
+  .btn.sec:hover { border-color: var(--accent); }
+  .btn.ok { background: linear-gradient(135deg, #059669, #10b981); border-color: #6ee7b7; }
+  .btn.sm { padding: 5px 10px; font-size: 0.78rem; }
+
+  input[type="text"], input[type="number"], select, textarea {
+    background: #0f172a; color: #f8fafc; border: 1px solid var(--border);
+    border-radius: 8px; padding: 7px 10px; font-size: 0.9rem; font-family: inherit;
+  }
+  input[type="range"] {
+    width: 100%; margin: 6px 0 8px; padding: 0; accent-color: var(--accent); cursor: pointer; display: block;
+  }
+  .grid-2 > *, .grid-3 > * { min-width: 0; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+  /* Mini-checks & Exercise blocks */
+  .check-box {
+    background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 12px 14px; margin-top: 10px;
+  }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+  .mc-opt {
+    background: var(--card2); border: 1px solid var(--border); color: #e2e8f0;
+    border-radius: 9px; padding: 7px 12px; cursor: pointer; font-size: 0.86rem; font-weight: 600;
+  }
+  .mc-opt:hover { border-color: var(--accent); }
+  .mc-opt.right { background: rgba(5, 150, 105, .28); border-color: var(--emerald); color: #d1fae5; }
+  .mc-opt.wrong { background: rgba(190, 18, 60, .28); border-color: var(--rose); color: #ffe4e6; }
+  .fb { margin-top: 8px; font-size: 0.86rem; font-weight: 600; display: none; }
+  .fb.show { display: block; }
+  .fb.ok { color: var(--emerald); }
+  .fb.bad { color: var(--rose); }
+
+  .ex-card {
+    background: #10192b; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px;
+  }
+  .ex-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .ex-answer-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+  .sol-panel {
+    display: none; margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+    background: rgba(30, 58, 138, .22); border: 1px solid rgba(129, 140, 248, .35);
+    font-size: 0.9rem;
+  }
+  .sol-panel.show { display: block; }
+
+  /* Linear Grapher */
+  .graph-layout { display: grid; grid-template-columns: minmax(290px, 470px) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 860px) { .graph-layout { grid-template-columns: 1fr; } }
+  .svg-frame {
+    background: #090f1d; border: 1px solid var(--border); border-radius: 12px; padding: 8px;
+    display: flex; justify-content: center;
+  }
+  svg.plot { width: 100%; max-width: 450px; height: auto; display: block; }
+
+  /* Flashcards */
+  .fc-card {
+    background: linear-gradient(145deg, #162238, #0f172a);
+    border: 1px solid var(--border); border-radius: 14px; padding: 16px;
+    cursor: pointer; transition: transform .15s, border-color .15s;
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 158px;
+  }
+  .fc-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .fc-card.mastered { border-color: var(--emerald); background: linear-gradient(145deg, #0c2924, #0f172a); }
+  .fc-back { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); color: #cbd5e1; font-size: 0.88rem; }
+  .fc-card.flipped .fc-back { display: block; }
+
+  /* Sim Questions */
+  .q-block {
+    background: #10192b; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px;
+  }
+  .q-opt {
+    display: block; width: 100%; text-align: left; margin-top: 6px; padding: 8px 12px;
+    background: var(--card2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 9px; cursor: pointer; font-size: 0.9rem;
+  }
+  .q-opt:hover { border-color: var(--accent); }
+  .q-opt.selected { border-color: var(--indigo); background: rgba(67, 56, 202, .35); }
+  .q-opt.correct-ans { border-color: var(--emerald); background: rgba(5, 150, 105, .3); }
+  .q-opt.wrong-ans { border-color: var(--rose); background: rgba(190, 18, 60, .3); }
+
+  details.diciembre-box {
+    border: 1px dashed #38bdf8; border-radius: 12px; padding: 10px 14px; background: rgba(12, 74, 110, .14);
+  }
+  details.diciembre-box summary {
+    cursor: pointer; font-weight: 700; color: #7dd3fc; font-size: 1rem;
+  }
+
+  /* Responsive mobile override required for full screen readability */
+  @media (max-width: 780px) {
+    .controls-bar { position: static; }
+    .container { padding: 10px 10px 36px; }
+    .card { padding: 13px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="hero-badge">🎯 URGENTE MAÑANA 26/11 y 27/11 · Compensación 2° Cuatrimestre (3° 3°)</div>
+        <h1>Matemática 3° Año · Estudio Guiado Paso a Paso</h1>
+        <p class="hero-sub">Basado 100% en tu carpeta ordenada, los 5 Trabajos Prácticos evaluados y el Comunicado Oficial del profe.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-lbl">Teoría (Checks)</div>
+          <div class="kpi-val" id="kpiChecks">0 / 7</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Simulacro 2° Cuat.</div>
+          <div class="kpi-val" id="kpiSim2c">— / 10</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Racha Práctica</div>
+          <div class="kpi-val" id="kpiStreak">0</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="controls-bar" aria-label="Selector de instancia y pestañas">
+    <div class="mode-row">
+      <div class="mode-btns">
+        <button class="mode-btn active" id="mode-comp2c" onclick="setInstanceMode('comp2c')">🎯 Compensación 26–27/11 ★ (3 Temas)</button>
+        <button class="mode-btn" id="mode-dic" onclick="setInstanceMode('dic')">📘 Extra Diciembre (Estadística + Not. Cient.)</button>
+        <button class="mode-btn" id="mode-todo" onclick="setInstanceMode('todo')">📚 Todo (Diciembre · 5 Temas)</button>
+      </div>
+      <span class="mode-hint" id="modeHint">Modo activo: Enfoque exclusivo en Q + Ecuaciones + Función Lineal</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="teoria" onclick="openTab('teoria')">🧭 Empezá por Acá (Teoría)</button>
+      <button class="tab-btn" data-tab="taller-q" onclick="openTab('taller-q')">🧮 Taller Q y Propiedades</button>
+      <button class="tab-btn" data-tab="ecuaciones" onclick="openTab('ecuaciones')">⚖️ Taller Ecuaciones en Q</button>
+      <button class="tab-btn" data-tab="lineal" onclick="openTab('lineal')">📈 Graficador Función Lineal</button>
+      <button class="tab-btn" data-tab="diciembre" onclick="openTab('diciembre')">📊 Estadística y Not. Cient. (Dic.)</button>
+      <button class="tab-btn" data-tab="simulacro" onclick="openTab('simulacro')">📝 Simulacro y Flashcards</button>
+    </div>
+  </nav>
+
+  <!-- ================= TAB 1: TEORIA PASO A PASO ================= -->
+  <section id="tab-teoria" class="tab-panel active">
+    <div class="card">
+      <h2>🎯 Qué te evalúan mañana (Jueves 26/11 y Viernes 27/11) <span class="pill urgent">Comunicado Oficial 1</span></h2>
+      <div class="grid-3">
+        <div class="callout urgent" style="margin:0;">
+          <strong>1. Operaciones combinadas en Q y Propiedades</strong><br>
+          Pasaje decimal→fracción, arcos de términos, simplificación uno a uno, potencias (incluso negativas) y raíces con sus propiedades.
+        </div>
+        <div class="callout urgent" style="margin:0;">
+          <strong>2. Ecuaciones en Q</strong><br>
+          Distributiva fraccionaria, proporción cruzada, decimales periódicos, conjunto solución única, sin solución (S = ∅) e infinitas (S = Q), y problemas.
+        </div>
+        <div class="callout urgent" style="margin:0;">
+          <strong>3. Función Lineal</strong><br>
+          Existencia y unicidad, ecuación explícita <span class="math">y = mx + b</span>, despeje, pendiente <span class="math">m</span>, ordenada <span class="math">b</span>, raíz <span class="math">X₀ = −b/m</span> y gráfica.
+        </div>
+      </div>
+
+      <h3>📌 Las 5 Reglas de Oro de tu Profe (¡Sacadas directo de los TPs corregidos!)</h3>
+      <div class="table-wrap">
+        <table class="clean">
+          <thead><tr><th>#</th><th>Lo que exige la profesora en la hoja</th><th>Error típico que baja nota o anula el punto</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td>Dibujar <strong>arcos de separación en términos</strong> arriba del cálculo.</td><td>Sumar antes de multiplicar o dividir.</td></tr>
+            <tr><td><strong>2</strong></td><td><strong>Mostrar el procedimiento pedido</strong> (inversión de división, multiplicación/división de índices y exponentes).</td><td>Poner solo el resultado directo → en TP 2 escribió: <em>"NO ES LO QUE SE PIDE EN LA CONSIGNA"</em>.</td></tr>
+            <tr><td><strong>3</strong></td><td><strong>"Se simplifica uno a uno"</strong>: tachar 1 numerador con 1 solo denominador.</td><td>Dividir dos denominadores por 2 usando un único numerador (error de TP 3).</td></tr>
+            <tr><td><strong>4</strong></td><td>En decimal <strong>periódico mixto</strong>, restar <strong>TODA</strong> la parte no periódica.</td><td>Hacer <span class="math">0,9<span class="per">3</span> = 93/90</span> olvidando restar el <span class="math">9</span>. ¡Correcto: <span class="math">(93−9)/90 = 14/15</span>!</td></tr>
+            <tr><td><strong>5</strong></td><td>Escribir los pasos intermedios de propiedades: <span class="math">(-3·2)</span>, <span class="math">(-6+8)</span>, <span class="math">12:6</span>, <span class="math">6:6</span>.</td><td>Multiplicar potencias o dejar una raíz sin calcular al final.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PASO 1: Q Y PROPIEDADES -->
+    <div class="card">
+      <h2>Paso 1 · Operaciones Combinadas en Q y Propiedades <span class="pill urgent">Eje 1</span></h2>
+      <p><strong>Idea base:</strong> Antes de sumar, multiplicar o elevar, <strong>pasá todo número decimal a fracción irreducible</strong>. Nunca operes mezclando decimales con fracciones.</p>
+
+      <div class="grid-3">
+        <div class="formula-box">
+          <strong>A) Decimal Exacto</strong><br>
+          Arriba: todo el número sin coma.<br>
+          Abajo: <span class="math">1</span> seguido de tantos <span class="math">0</span> como cifras decimales haya.<br><br>
+          <span class="math">0,7 = <span class="frac"><span class="num">7</span><span class="den">10</span></span></span> &nbsp;|&nbsp;
+          <span class="math">−1,875 = −<span class="frac"><span class="num">1875</span><span class="den">1000</span></span> = −<span class="frac"><span class="num">15</span><span class="den">8</span></span></span>
+        </div>
+        <div class="formula-box">
+          <strong>B) Periódico Puro</strong><br>
+          Arriba: todo sin coma <strong>menos parte entera</strong>.<br>
+          Abajo: tantos <span class="math">9</span> como cifras bajo el arquito.<br><br>
+          <span class="math">0,<span class="per">3</span> = <span class="frac"><span class="num">3</span><span class="den">9</span></span> = <span class="frac"><span class="num">1</span><span class="den">3</span></span></span> &nbsp;|&nbsp;
+          <span class="math">2,<span class="per">3</span> = <span class="frac"><span class="num">23−2</span><span class="den">9</span></span> = <span class="frac"><span class="num">7</span><span class="den">3</span></span></span>
+        </div>
+        <div class="formula-box" style="border-color: rgba(251,113,133,.5);">
+          <strong>C) Periódico Mixto ★ Clave</strong><br>
+          Arriba: todo sin coma <strong>menos TODA la parte no periódica</strong>.<br>
+          Abajo: tantos <span class="math">9</span> (periód.) y tantos <span class="math">0</span> (dec. no periód.).<br><br>
+          <span class="math">0,9<span class="per">3</span> = <span class="frac"><span class="num">93−9</span><span class="den">90</span></span> = <span class="frac"><span class="num">14</span><span class="den">15</span></span></span> &nbsp;|&nbsp;
+          <span class="math">0,8<span class="per">3</span> = <span class="frac"><span class="num">83−8</span><span class="den">90</span></span> = <span class="frac"><span class="num">5</span><span class="den">6</span></span></span>
+        </div>
+      </div>
+
+      <h3>⚡ Exponente Negativo y Signos Peligrosos (Hojas 65–66)</h3>
+      <div class="callout warn">
+        <strong>Exponente negativo da vuelta la fracción:</strong>
+        <span class="math">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>−n</sup> = (<span class="frac"><span class="num">b</span><span class="den">a</span></span>)<sup>n</sup></span>.
+        Ej.: <span class="math">(<span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>−2</sup> = (<span class="frac"><span class="num">2</span><span class="den">3</span></span>)<sup>2</sup> = <span class="frac"><span class="num">4</span><span class="den">9</span></span></span> &nbsp;|&nbsp;
+        <span class="math">0,5<sup>−3</sup> = (<span class="frac"><span class="num">1</span><span class="den">2</span></span>)<sup>−3</sup> = 2<sup>3</sup> = 8</span>.<br>
+        <strong>¡Trampa de paréntesis!</strong> <span class="math">(−7)<sup>−2</sup> = +<span class="frac"><span class="num">1</span><span class="den">49</span></span></span>, pero sin paréntesis el menos queda afuera: <span class="math">−7<sup>−2</sup> = −<span class="frac"><span class="num">1</span><span class="den">49</span></span></span>.
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3>📘 Las 5 Propiedades de la Potenciación (Hoja 68)</h3>
+          <table class="clean">
+            <tbody>
+              <tr><td><strong>1. Distributiva (×)</strong></td><td class="math">(<span class="frac"><span class="num">a</span><span class="den">b</span></span> · <span class="frac"><span class="num">c</span><span class="den">d</span></span>)<sup>n</sup> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup> · (<span class="frac"><span class="num">c</span><span class="den">d</span></span>)<sup>n</sup></td></tr>
+              <tr><td><strong>2. Distributiva (:)</strong></td><td class="math">(<span class="frac"><span class="num">a</span><span class="den">b</span></span> : <span class="frac"><span class="num">c</span><span class="den">d</span></span>)<sup>n</sup> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup> : (<span class="frac"><span class="num">c</span><span class="den">d</span></span>)<sup>n</sup></td></tr>
+              <tr><td><strong>3. Producto igual base</strong></td><td class="math">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup> · (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m</sup> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n+m</sup></td></tr>
+              <tr><td><strong>4. Cociente igual base</strong></td><td class="math">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup> : (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m</sup> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n−m</sup></td></tr>
+              <tr><td><strong>5. Potencia de potencia</strong></td><td class="math">[(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup>]<sup>m</sup> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n·m</sup></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>📗 Las 4 Propiedades de la Radicación (Hoja 70)</h3>
+          <table class="clean">
+            <tbody>
+              <tr><td><strong>1. Producto igual índice</strong></td><td class="math"><span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span></span></span> · <span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">c</span><span class="den">d</span></span></span></span> = <span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span>·<span class="frac"><span class="num">c</span><span class="den">d</span></span></span></span></td></tr>
+              <tr><td><strong>2. Cociente igual índice</strong></td><td class="math"><span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span></span></span> : <span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">c</span><span class="den">d</span></span></span></span> = <span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span>:<span class="frac"><span class="num">c</span><span class="den">d</span></span></span></span></td></tr>
+              <tr><td><strong>3. Simplif. índice y exp.</strong></td><td class="math"><span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m</sup></span></span> = <span class="rad"><span class="rad-idx">n:c</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m:c</sup></span></span></td></tr>
+              <tr><td><strong>4. Raíz de otra raíz</strong></td><td class="math"><span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body"><span class="rad"><span class="rad-idx">m</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span></span></span></span></span> = <span class="rad"><span class="rad-idx">n·m</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">a</span><span class="den">b</span></span></span></span></td></tr>
+              <tr><td><strong>Exponente fraccionario</strong></td><td class="math"><span class="rad"><span class="rad-idx">n</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m</sup></span></span> = (<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>m/n</sup></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3>✏️ Ejemplo Real de TP 4 Resuelto Renglón por Renglón</h3>
+      <div class="formula-box">
+        <strong>Consigna (TP 4 · 9/8/26):</strong> <span class="math">(1 + <span class="frac"><span class="num">1</span><span class="den">2</span></span>)<sup>−2</sup> + (0,<span class="per">5</span> − 1) · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body">−<span class="frac"><span class="num">8</span><span class="den">9</span></span></span></span> · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">1</span><span class="den">3</span></span></span></span></span>
+        <div class="step-line"><strong>Paso 1 · Separar en 2 términos y operar adentro:</strong> <span class="math">(<span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>−2</sup> + (<span class="frac"><span class="num">5</span><span class="den">9</span></span> − 1) · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body">−<span class="frac"><span class="num">8</span><span class="den">9</span></span> · <span class="frac"><span class="num">1</span><span class="den">3</span></span></span></span></span></div>
+        <div class="step-line"><strong>Paso 2 · Resolver potencia negativa, resta con signo y raíz junta:</strong> <span class="math"><span class="frac"><span class="num">4</span><span class="den">9</span></span> + (−<span class="frac"><span class="num">4</span><span class="den">9</span></span>) · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body">−<span class="frac"><span class="num">8</span><span class="den">27</span></span></span></span></span> <em>(¡Ojo! 5/9 − 1 = −4/9, no +4/5)</em></div>
+        <div class="step-line"><strong>Paso 3 · Multiplicar en el 2° término y sumar denominador común:</strong> <span class="math"><span class="frac"><span class="num">4</span><span class="den">9</span></span> + (−<span class="frac"><span class="num">4</span><span class="den">9</span></span>)·(−<span class="frac"><span class="num">2</span><span class="den">3</span></span>) = <span class="frac"><span class="num">4</span><span class="den">9</span></span> + <span class="frac"><span class="num">8</span><span class="den">27</span></span> = <span class="frac"><span class="num">12 + 8</span><span class="den">27</span></span> = <strong><span class="frac"><span class="num">20</span><span class="den">27</span></span></strong></span></div>
+      </div>
+
+      <!-- Mini-checks 1, 2, 3 -->
+      <div class="grid-3">
+        <div class="check-box" data-mc="mc1">
+          <strong>Mini-check 1:</strong> ¿Cuál es la fracción irreducible de <span class="math">0,9<span class="per">3</span></span>?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc1', this, false, 'Error clásico de TP 2: 31/30 sale de hacer 93/90 sin restar el 9.')">31/30</button>
+            <button class="mc-opt" onclick="ansMC('mc1', this, true, '¡Exacto! (93 − 9) / 90 = 84/90 = 14/15.')">14/15</button>
+            <button class="mc-opt" onclick="ansMC('mc1', this, false, 'Sería 93/100 si fuera exacto sin arquito, pero el 3 es periódico.')">93/100</button>
+          </div>
+          <div class="fb" id="fb-mc1"></div>
+        </div>
+        <div class="check-box" data-mc="mc2">
+          <strong>Mini-check 2:</strong> ¿Cuánto da <span class="math">[(<span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>5</sup>]<sup>3</sup> : (<span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>12</sup></span>?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc2', this, false, 'Potencia de potencia se MULTIPLICAN (5·3=15), no se suman (5+3=8).')">(3/2)⁻⁴</button>
+            <button class="mc-opt" onclick="ansMC('mc2', this, true, '¡Muy bien! (3/2)¹⁵ : (3/2)¹² = (3/2)³ = 27/8.')">27/8</button>
+            <button class="mc-opt" onclick="ansMC('mc2', this, false, 'El exponente es positivo (+3), así que no se invierte la base.')">8/27</button>
+          </div>
+          <div class="fb" id="fb-mc2"></div>
+        </div>
+        <div class="check-box" data-mc="mc3">
+          <strong>Mini-check 3:</strong> ¿Cuál es el resultado de <span class="math">−7<sup>−2</sup></span> (sin paréntesis)?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc3', this, false, 'Ojo: +1/49 sería (-7)⁻², con paréntesis.')">1/49</button>
+            <button class="mc-opt" onclick="ansMC('mc3', this, true, '¡Impecable! El signo menos queda afuera: -(1/7²) = -1/49.')">−1/49</button>
+            <button class="mc-opt" onclick="ansMC('mc3', this, false, 'El exponente negativo no cambia el signo a -49; invierte a fracción.')">−49</button>
+          </div>
+          <div class="fb" id="fb-mc3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2: ECUACIONES EN Q -->
+    <div class="card">
+      <h2>Paso 2 · Ecuaciones en Q y Situaciones Problemáticas <span class="pill urgent">Eje 2</span></h2>
+      <p><strong>Idea base:</strong> Una ecuación es una balanza con una incógnita <span class="math">x</span>. Hay 2 herramientas mágicas (Hoja 98) para sacarte de encima las fracciones feas:</p>
+
+      <div class="grid-2">
+        <div class="formula-box">
+          <strong>1. Distributiva de la división (Hoja 98)</strong><br>
+          <span class="math"><span class="frac"><span class="num">a + b</span><span class="den">c</span></span> = <span class="frac"><span class="num">a</span><span class="den">c</span></span> + <span class="frac"><span class="num">b</span><span class="den">c</span></span></span><br>
+          Ej.: <span class="math"><span class="frac"><span class="num">3x + 1</span><span class="den">4</span></span> = <span class="frac"><span class="num">3</span><span class="den">4</span></span>x + <span class="frac"><span class="num">1</span><span class="den">4</span></span></span><br>
+          <span style="color:#fecdd3;"><strong>⚠️ Si hay un MENOS delante de toda la raya:</strong><br>
+          <span class="math">−<span class="frac"><span class="num">5x − 2</span><span class="den">3</span></span> = −<span class="frac"><span class="num">5</span><span class="den">3</span></span>x <strong>+</strong> <span class="frac"><span class="num">2</span><span class="den">3</span></span></span> (cambia ambos signos!)</span>
+        </div>
+        <div class="formula-box">
+          <strong>2. Propiedad fundamental de proporciones</strong><br>
+          <span class="math"><span class="frac"><span class="num">a</span><span class="den">b</span></span> = <span class="frac"><span class="num">c</span><span class="den">d</span></span> &nbsp;⇒&nbsp; a · d = b · c</span><br>
+          Cuando hay UNA fracción de cada lado, multiplicás cruzado:<br>
+          <span class="math"><span class="frac"><span class="num">3x − 2</span><span class="den">5</span></span> = <span class="frac"><span class="num">2x − 3</span><span class="den">6</span></span> &nbsp;⇒&nbsp; 6·(3x − 2) = 5·(2x − 3)</span>
+        </div>
+      </div>
+
+      <h3>📌 Los 3 Tipos Posibles de Conjunto Solución (Hojas 95–96)</h3>
+      <div class="grid-3">
+        <div class="step-line"><strong>1. Solución única:</strong> Queda <span class="math">ax = b</span> con <span class="math">a ≠ 0</span>. Pasás <span class="math">a</span> dividiendo <strong>con su signo</strong>. Ej: <span class="math">8x = −3 ⇒ x = −3/8</span>, <span class="math">S = {−3/8}</span>.</div>
+        <div class="step-line" style="border-left-color:var(--rose);"><strong>2. Contradicción (Sin solución):</strong> Se cancelan las <span class="math">x</span> y queda algo falso: <span class="math">0x = 38 ⇒ 0 = 38</span>. Se escribe <strong>S = ∅</strong>.</div>
+        <div class="step-line" style="border-left-color:var(--emerald);"><strong>3. Identidad (Infinitas soluciones):</strong> Se cancelan las <span class="math">x</span> y queda igualdad verdadera: <span class="math">0x = 0 ⇒ 0 = 0</span>. Se escribe <strong>S = Q</strong>.</div>
+      </div>
+
+      <div class="grid-2" style="margin-top:8px;">
+        <div class="check-box" data-mc="mc4">
+          <strong>Mini-check 4:</strong> Al resolver <span class="math"><span class="frac"><span class="num">3x − 2</span><span class="den">5</span></span> = <span class="frac"><span class="num">2x − 3</span><span class="den">6</span></span></span> llegamos a <span class="math">8x = −3</span>. ¿Cuánto vale <span class="math">x</span>?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc4', this, true, '¡Bien! El 8 pasa dividiendo con signo positivo y el -3 sigue negativo: x = -3/8.')">x = −3/8</button>
+            <button class="mc-opt" onclick="ansMC('mc4', this, false, 'Ojo: error de Hoja 106! Al pasar el 8 dividiendo no desaparece el signo menos del -3.')">x = 3/8</button>
+            <button class="mc-opt" onclick="ansMC('mc4', this, false, 'Se invirtió numerador y denominador: el 8 que multiplica a x va abajo.')">x = −8/3</button>
+          </div>
+          <div class="fb" id="fb-mc4"></div>
+        </div>
+        <div class="check-box" data-mc="mc5">
+          <strong>Mini-check 5:</strong> Si al despejar te queda <span class="math">0x = <span class="frac"><span class="num">3</span><span class="den">4</span></span></span> (como en Hoja 107e), ¿cuál es el conjunto solución?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc5', this, false, 'Ningún número multiplicado por 0 da 3/4, así que 0 no verifica.')">S = {0}</button>
+            <button class="mc-opt" onclick="ansMC('mc5', this, true, '¡Exacto! Es una contradicción (0 = 3/4 falso) ⇒ No tiene solución (S = ∅).')">S = ∅ (Sin solución)</button>
+            <button class="mc-opt" onclick="ansMC('mc5', this, false, 'S = Q sería si quedara 0 = 0 (identidad).')">S = Q (Infinitas)</button>
+          </div>
+          <div class="fb" id="fb-mc5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3: FUNCION LINEAL -->
+    <div class="card">
+      <h2>Paso 3 · Concepto de Función y Función Lineal <span class="pill urgent">Eje 3</span></h2>
+      <div class="callout ok">
+        <strong>¿Cuándo una relación R: A → B es FUNCIÓN? (Hojas 112–114):</strong><br>
+        Debe cumplir <strong>DOS condiciones obligatorias</strong> para todos los elementos del conjunto de partida <strong>A</strong>:
+        <br>1) <strong>Existencia:</strong> TODOS los elementos de A salen con flecha (no sobra nadie en A).
+        <br>2) <strong>Unicidad:</strong> CADA elemento de A tiene UNA SOLA imagen en B (no salen dos flechas del mismo valor de x).
+      </div>
+
+      <h3>📐 Ecuación Explícita de la Recta: <span class="math">y = m·x + b</span> (Hoja 116)</h3>
+      <div class="grid-3">
+        <div class="formula-box">
+          <strong>Pendiente (<span class="math">m</span>)</strong><br>
+          Número que multiplica a <span class="math">x</span>. Marca inclinación (<span class="math">m = tg α</span>):<br>
+          • <span class="math">m &gt; 0</span> → <strong>Creciente</strong> (↗)<br>
+          • <span class="math">m &lt; 0</span> → <strong>Decreciente</strong> (↘)<br>
+          • <span class="math">m = 0</span> → <strong>Constante</strong> (→)
+        </div>
+        <div class="formula-box">
+          <strong>Ordenada al origen (<span class="math">b</span>)</strong><br>
+          Número que está solo. Es donde la recta corta al <strong>eje Y</strong>:<br>
+          Punto <span class="math">(0; b)</span>, pues <span class="math">f(0) = b</span>.<br>
+          <em>Cuidado si despejás:</em> <span class="math">3y−2x=7 ⇒ y=<span class="frac"><span class="num">2</span><span class="den">3</span></span>x + <span class="frac"><span class="num">7</span><span class="den">3</span></span></span> (<span class="math">b=+7/3</span>!).
+        </div>
+        <div class="formula-box" style="border-color: rgba(251,191,36,.45);">
+          <strong>Raíz o Cero (<span class="math">X₀</span>)</strong><br>
+          Valor donde la recta corta al <strong>eje X</strong> (<span class="math">y = 0</span>):<br>
+          <span class="math">mx + b = 0 &nbsp;⇒&nbsp; <strong>X₀ = −<span class="frac"><span class="num">b</span><span class="den">m</span></span></strong></span><br>
+          <em>¡No olvidar el signo menos de la fórmula!</em>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>✏️ Método Rápido de 3 Pasos para Graficar Sin Tabla:</strong><br>
+        Dada <span class="math">y = <span class="frac"><span class="num">2</span><span class="den">5</span></span>x − 1</span> (Hoja 119a):
+        <strong>1)</strong> Marcá <span class="math">b = −1</span> sobre el eje Y, es decir <span class="math">(0; −1)</span>.
+        <strong>2)</strong> Desde ahí corré <strong>5 a la derecha</strong> (denominador de <span class="math">m</span>).
+        <strong>3)</strong> Subí <strong>2 unidades</strong> (numerador positivo de <span class="math">m</span>) hasta <span class="math">(5; 1)</span> y trazá la recta con regla. Comprobá que corte al eje X en <span class="math">X₀ = −(−1)/(2/5) = 5/2 = 2,5</span>.
+      </div>
+
+      <div class="grid-2">
+        <div class="check-box" data-mc="mc6">
+          <strong>Mini-check 6:</strong> Despejá <span class="math">3y − 2x = 7</span> (Hoja 117d). ¿Cuánto valen <span class="math">m</span> y <span class="math">b</span>?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc6', this, false, 'Error de Hoja 117d: el +7 no cambia de signo al quedarse en la derecha.')">m = 2/3, b = −7/3</button>
+            <button class="mc-opt" onclick="ansMC('mc6', this, true, '¡Perfecto! 3y = 2x + 7 ⇒ y = (2/3)x + 7/3.')">m = 2/3, b = 7/3</button>
+            <button class="mc-opt" onclick="ansMC('mc6', this, false, 'Al pasar -2x al otro lado pasa sumando (+2x).')">m = −2/3, b = 7/3</button>
+          </div>
+          <div class="fb" id="fb-mc6"></div>
+        </div>
+        <div class="check-box" data-mc="mc7">
+          <strong>Mini-check 7:</strong> Para <span class="math">y = −2x − 1</span> (Hoja 119c), ¿cuál es la raíz <span class="math">X₀</span> y cómo es la función?
+          <div class="mc-opts">
+            <button class="mc-opt" onclick="ansMC('mc7', this, false, 'Cuidado con los signos: X₀ = -b/m = -(-1)/(-2) = 1/(-2) = -1/2.')">X₀ = 1/2 · Creciente</button>
+            <button class="mc-opt" onclick="ansMC('mc7', this, true, '¡Brillante! X₀ = -(-1)/(-2) = -1/2, y como m = -2 < 0 es decreciente.')">X₀ = −1/2 · Decreciente</button>
+            <button class="mc-opt" onclick="ansMC('mc7', this, false, 'La pendiente m es -2 (negativa), no puede ser creciente.')">X₀ = −2 · Creciente</button>
+          </div>
+          <div class="fb" id="fb-mc7"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOQUE DICIEMBRE COLAPSABLE -->
+    <details class="diciembre-box" id="dicDetails">
+      <summary>📘 Resumen Extra Intensificación Diciembre (Estadística · Notación Científica · Error Absoluto)</summary>
+      <div style="margin-top:12px;">
+        <div class="grid-2">
+          <div class="formula-box">
+            <strong>📊 Estadística (Hojas 14–40)</strong><br>
+            • <strong>Población:</strong> total del grupo. <strong>Muestra:</strong> subconjunto representativo.<br>
+            • <strong>Cualitativas:</strong> cualidades (color, transporte). <strong>Cuantitativas:</strong> números (<em>discretas</em> = enteros como hermanos; <em>continuas</em> = intervalos como altura/peso).<br>
+            • <span class="math">f<sub>r</sub> = <span class="frac"><span class="num">f</span><span class="den">n</span></span></span> (suma 1) | <span class="math">F% = f<sub>r</sub>·100</span> (suma 100%) | <span class="math">α = f<sub>r</sub>·360°</span> (suma 360°).<br>
+            • <strong>Media (<span class="math">x̄</span>):</strong> <span class="math">∑(x·f)/n</span> | <strong>Moda (Mo):</strong> mayor frecuencia | <strong>Mediana (Me):</strong> dato central tras ordenar de menor a mayor (o promedio de los 2 centrales si <span class="math">n</span> es par).
+          </div>
+          <div class="formula-box">
+            <strong>🔬 Notación Científica y Error (Hojas 82–94 + TP 5)</strong><br>
+            • Forma: <span class="math">a · 10<sup>n</sup></span> con <span class="math">1 ≤ |a| &lt; 10</span>.<br>
+            • Grandes: <span class="math">1.200.000 = 1,2 · 10<sup>6</sup></span> | Chicos: <span class="math">0,006 = 6 · 10<sup>−3</sup></span>.<br>
+            • En divisiones se <strong>restan exponentes</strong>: <span class="math">10<sup>−5</sup> / 10<sup>3</sup> = 10<sup>−8</sup></span>; <span class="math">10<sup>−4</sup> / 10<sup>−13</sup> = 10<sup>9</sup></span>.<br>
+            • <strong>Truncar:</strong> cortar sin cambiar. <strong>Redondear:</strong> mirar cifra derecha (0–4 queda igual; 5–9 suma 1).<br>
+            • <strong>Error absoluto:</strong> <span class="math">ε = |exacto − aproximado|</span>.
+          </div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= TAB 2: TALLER Q Y PROPIEDADES ================= -->
+  <section id="tab-taller-q" class="tab-panel">
+    <div class="card">
+      <h2>🔄 Conversor Interactivo: Decimal → Fracción Irreducible <span class="pill">Hojas 43–48</span></h2>
+      <p>Elegí un tipo de expresión decimal o tocá uno de los casos reales que tomó tu profe en la carpeta y TPs:</p>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;" id="decPresets"></div>
+      <div class="grid-3">
+        <div>
+          <label for="decType"><strong>Tipo de expresión</strong></label><br>
+          <select id="decType" style="width:100%; margin-top:4px;" onchange="updateDecConverter()">
+            <option value="exact">Exacta (ej: 0,7 o -1,875)</option>
+            <option value="pure">Periódica Pura (ej: 0,3̂ o 2,3̂)</option>
+            <option value="mixed" selected>Periódica Mixta (ej: 0,93̂ o 0,83̂)</option>
+          </select>
+        </div>
+        <div>
+          <label for="decSignInt"><strong>Signo y parte entera</strong></label><br>
+          <input type="text" id="decSignInt" value="0" style="width:100%; margin-top:4px;" oninput="updateDecConverter()" placeholder="Ej: 0, -2, 4">
+        </div>
+        <div>
+          <label for="decNonPer"><strong>Decimal NO periódico (sin arquito)</strong></label><br>
+          <input type="text" id="decNonPer" value="9" style="width:100%; margin-top:4px;" oninput="updateDecConverter()" placeholder="Ej: 9, 08, 75">
+        </div>
+        <div>
+          <label for="decPer"><strong>Cifras periódicas (bajo arquito)</strong></label><br>
+          <input type="text" id="decPer" value="3" style="width:100%; margin-top:4px;" oninput="updateDecConverter()" placeholder="Ej: 3, 45, 6">
+        </div>
+      </div>
+      <div class="formula-box" id="decResultBox" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>🧮 Práctica Guiada: Combinadas en Q y Propiedades <span class="pill urgent">10 Ejercicios Reales (TPs 2–4 y Hojas 66–81)</span></h2>
+      <p>Escribí tu respuesta como fracción irreducible (ej: <code>-7/90</code> o <code>20/27</code>) o entero (ej: <code>5</code>). Usá las pistas si te trabás.</p>
+      <div id="qExercisesWrap"></div>
+    </div>
+
+    <div class="card">
+      <h2>🕵️ Detector "Cazá el Error Real" (Trampas de los TPs y Carpeta)</h2>
+      <p>Estos 5 errores aparecieron de verdad en hojas de la carpeta y trabajos prácticos. Tocá cuál es la falla exacta para no repetirla mañana:</p>
+      <div id="errorHuntWrap"></div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3: TALLER ECUACIONES EN Q ================= -->
+  <section id="tab-ecuaciones" class="tab-panel">
+    <div class="card">
+      <h2>⚖️ Taller de Ecuaciones en Q y Problemas Verbales <span class="pill urgent">10 Ejercicios Reales (Hojas 98–111)</span></h2>
+      <p>Podés escribir fracciones como <code>3/25</code> o <code>-8/11</code>, enteros como <code>360</code>, y en casos especiales escribí <code>vacio</code> / <code>S=∅</code> (sin solución) o <code>Q</code> / <code>infinitas</code> (identidad).</p>
+      <div id="eqExercisesWrap"></div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 4: GRAFICADOR FUNCION LINEAL ================= -->
+  <section id="tab-lineal" class="tab-panel">
+    <div class="card">
+      <h2>📈 Graficador Interactivo de Función Lineal: <span class="math">y = m·x + b</span> <span class="pill urgent">Hojas 116–119</span></h2>
+      <p>Tocá cualquiera de las <strong>9 rectas reales de tu carpeta</strong> o mové las fracciones de <span class="math">m</span> y <span class="math">b</span> para ver ordenada, raíz y escalón de pendiente en tiempo real:</p>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;" id="linePresets"></div>
+
+      <div class="graph-layout">
+        <div class="svg-frame">
+          <svg id="lineSvg" class="plot" viewBox="0 0 420 420" role="img" aria-label="Plano cartesiano de función lineal"></svg>
+        </div>
+        <div>
+          <div class="grid-2" style="gap:10px;">
+            <div class="formula-box" style="margin:0;">
+              <strong>Pendiente <span class="math">m = p / q</span></strong><br>
+              <label for="rngP">Numerador <span class="math">p</span>: <strong id="lblP">2</strong></label>
+              <input type="range" id="rngP" aria-label="Numerador de la pendiente" min="-8" max="8" value="2" style="width:100%;" oninput="updateLinearPlot()"><br>
+              <label for="rngQ">Denominador <span class="math">q</span>: <strong id="lblQ">5</strong></label>
+              <input type="range" id="rngQ" aria-label="Denominador de la pendiente" min="1" max="6" value="5" style="width:100%;" oninput="updateLinearPlot()">
+            </div>
+            <div class="formula-box" style="margin:0;">
+              <strong>Ordenada al origen <span class="math">b = r / s</span></strong><br>
+              <label for="rngR">Numerador <span class="math">r</span>: <strong id="lblR">-1</strong></label>
+              <input type="range" id="rngR" aria-label="Numerador de la ordenada" min="-12" max="12" value="-1" style="width:100%;" oninput="updateLinearPlot()"><br>
+              <label for="rngS">Denominador <span class="math">s</span>: <strong id="lblS">1</strong></label>
+              <input type="range" id="rngS" aria-label="Denominador de la ordenada" min="1" max="6" value="1" style="width:100%;" oninput="updateLinearPlot()">
+            </div>
+          </div>
+          <div class="formula-box" id="lineInfoBox" style="margin-top:10px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🧭 Desafíos de Función Lineal y Existencia / Unicidad <span class="pill">Hojas 112–119</span></h2>
+      <div id="lineChallengesWrap"></div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 5: ESTADISTICA Y NOTACION CIENTIFICA (DIC.) ================= -->
+  <section id="tab-diciembre" class="tab-panel">
+    <div class="card">
+      <h2>📊 Laboratorio Estadístico en Vivo <span class="pill ok">Comunicado Diciembre · Hojas 18–40</span></h2>
+      <p>Cargá un caso real de tu carpeta o editá los números separados por coma para ver al instante la <strong>tabla de frecuencias completa</strong>, <strong>media, mediana y moda</strong>, y los <strong>gráficos de barras y circular</strong>:</p>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;" id="statPresets"></div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+        <input type="text" id="statInput" aria-label="Datos numéricos separados por coma" style="flex:1; min-width:240px;" value="0,2,2,5,4,3,3,2,5,2,1,1,3,2,4,2,2,1,2,2,1,0,1,2,1">
+        <button class="btn" onclick="renderStatsLab()">Calcular Tabla y Gráficos</button>
+      </div>
+      <div id="statSummary" class="formula-box"></div>
+      <div class="table-wrap" id="statTableWrap"></div>
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="svg-frame"><svg id="barSvg" viewBox="0 0 420 260" style="width:100%; height:auto;"></svg></div>
+        <div class="svg-frame"><svg id="pieSvg" viewBox="0 0 420 260" style="width:100%; height:auto;"></svg></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔬 Práctica: Notación Científica y Error Absoluto <span class="pill ok">8 Ejercicios Reales (Hojas 86–94, 109 + TP 5)</span></h2>
+      <p>Para notación científica escribí como <code>6*10^-3</code> o <code>1,92*10^4</code> (también acepta <code>x10^</code>). Para error absoluto usá coma o punto (ej: <code>0,048</code>).</p>
+      <div id="sciExercisesWrap"></div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 6: SIMULACRO Y FLASHCARDS ================= -->
+  <section id="tab-simulacro" class="tab-panel">
+    <div class="card">
+      <h2>📝 Simulacro de Examen <span class="pill urgent">Formato Real de Tu Profesora</span></h2>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; align-items:center; justify-content:space-between;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="btn" id="btnSim2c" onclick="switchSim('2c')">🎯 Simulacro Compensación 26–27/11 (12 preg. · 3 Temas)</button>
+          <button class="btn sec" id="btnSimDic" onclick="switchSim('dic')">🏆 Integrador Diciembre (15 preg. · 5 Temas)</button>
+        </div>
+        <button class="btn sec sm" onclick="resetSim()">🔄 Reiniciar Simulacro</button>
+      </div>
+      <div id="simBanner" class="callout urgent"></div>
+      <div id="simWrap"></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;">
+        <button class="btn ok" onclick="gradeSim()">✅ Corregir y Calcular Mi Nota</button>
+        <div id="simResult" style="font-weight:800; font-size:1.02rem;"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🃏 Flashcards de Repaso Rápido (18 Tarjetas)</h2>
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+        <button class="btn sm" onclick="filterFC('all')">Todas (18)</button>
+        <button class="btn sm sec" onclick="filterFC('2c')">Solo Compensación 26–27/11</button>
+        <button class="btn sm sec" onclick="filterFC('dic')">Solo Extra Diciembre</button>
+      </div>
+      <div class="grid-3" id="fcWrap"></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ==================== HELPERS MATEMATICOS ====================
+function gcd(a, b) {
+  a = Math.abs(Math.round(a)); b = Math.abs(Math.round(b));
+  while (b !== 0) { const t = a % b; a = b; b = t; }
+  return a || 1;
+}
+function simpFrac(n, d) {
+  if (d === 0) return { n: 0, d: 1 };
+  if (d < 0) { n = -n; d = -d; }
+  const g = gcd(n, d);
+  return { n: n / g, d: d / g };
+}
+function fmtFracText(n, d) {
+  const f = simpFrac(n, d);
+  if (f.d === 1) return String(f.n);
+  return `${f.n}/${f.d}`;
+}
+function fmtFracHTML(n, d) {
+  const f = simpFrac(n, d);
+  if (f.d === 1) return `<span class="math">${f.n < 0 ? '−' + Math.abs(f.n) : f.n}</span>`;
+  const sign = f.n < 0 ? '−' : '';
+  return `<span class="math">${sign}<span class="frac"><span class="num">${Math.abs(f.n)}</span><span class="den">${f.d}</span></span></span>`;
+}
+function parseMathNum(raw) {
+  const s = (raw || '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,/g, '.');
+  if (!s) return null;
+  if (s.includes('/')) {
+    const parts = s.split('/');
+    if (parts.length !== 2) return null;
+    const n = Number(parts[0]), d = Number(parts[1]);
+    if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
+    return n / d;
+  }
+  const v = Number(s);
+  return Number.isFinite(v) ? v : null;
+}
+
+// ==================== ESTADO Y NAVEGACION ====================
+const STORAGE_KEY = 'mat3_marito_2026_v1';
+const state = {
+  mode: 'comp2c',
+  checksDone: {},
+  streak: 0,
+  sim2cScore: null,
+  simType: '2c',
+  simAns: { '2c': {}, 'dic': {} },
+  fcMastered: {},
+  fcFilter: 'all'
+};
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (saved.checksDone) state.checksDone = saved.checksDone;
+  if (typeof saved.streak === 'number') state.streak = saved.streak;
+  if (typeof saved.sim2cScore === 'number') state.sim2cScore = saved.sim2cScore;
+  if (saved.fcMastered) state.fcMastered = saved.fcMastered;
+} catch (_) {}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+  updateKPIs();
+}
+function updateKPIs() {
+  const cnt = Object.keys(state.checksDone).length;
+  document.getElementById('kpiChecks').textContent = `${cnt} / 7`;
+  document.getElementById('kpiSim2c').textContent = state.sim2cScore === null ? '— / 10' : `${state.sim2cScore.toFixed(1)} / 10`;
+  document.getElementById('kpiStreak').textContent = `${state.streak}`;
+}
+function addStreak(ok) {
+  state.streak = ok ? state.streak + 1 : 0;
+  saveState();
+}
+
+function setInstanceMode(mode) {
+  state.mode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active', 'dic', 'todo'));
+  const btn = document.getElementById('mode-' + mode);
+  btn.classList.add('active');
+  if (mode === 'dic') btn.classList.add('dic');
+  if (mode === 'todo') btn.classList.add('todo');
+
+  const dicDet = document.getElementById('dicDetails');
+  const hint = document.getElementById('modeHint');
+  if (mode === 'comp2c') {
+    hint.textContent = 'Modo activo: Enfoque exclusivo en Q + Ecuaciones + Función Lineal (Mañana 26–27/11)';
+    if (dicDet) dicDet.open = false;
+    switchSim('2c');
+  } else if (mode === 'dic') {
+    hint.textContent = 'Modo activo: Repaso extra Estadística + Notación Científica (Diciembre)';
+    if (dicDet) dicDet.open = true;
+    openTab('diciembre');
+  } else {
+    hint.textContent = 'Modo activo: Programa Completo (Los 5 temas del Comunicado de Diciembre)';
+    if (dicDet) dicDet.open = true;
+    switchSim('dic');
+  }
+}
+
+function openTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + id));
+}
+
+function ansMC(id, btn, ok, msg) {
+  const box = btn.closest('.check-box');
+  box.querySelectorAll('.mc-opt').forEach(o => o.classList.remove('right', 'wrong'));
+  btn.classList.add(ok ? 'right' : 'wrong');
+  const fb = document.getElementById('fb-' + id);
+  fb.textContent = msg;
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  if (ok) state.checksDone[id] = true;
+  addStreak(ok);
+}
+
+// ==================== CONVERSOR DECIMAL A FRACCION ====================
+const DEC_PRESETS = [
+  { lbl: '0,93̂ (TP 2)', type: 'mixed', i: '0', np: '9', p: '3' },
+  { lbl: '0,83̂ (TP 3)', type: 'mixed', i: '0', np: '8', p: '3' },
+  { lbl: '-1,875 (TP 3)', type: 'exact', i: '-1', np: '875', p: '' },
+  { lbl: '2,3̂ (TP 2)', type: 'pure', i: '2', np: '', p: '3' },
+  { lbl: '0,5̂ (TP 4)', type: 'pure', i: '0', np: '', p: '5' },
+  { lbl: '2,083̂ (H.65)', type: 'mixed', i: '2', np: '08', p: '3' },
+  { lbl: '4,235̂ (H.48)', type: 'mixed', i: '4', np: '2', p: '35' },
+  { lbl: '-2,31̂ (H.47)', type: 'mixed', i: '-2', np: '3', p: '1' },
+  { lbl: '5,83̂ (H.64)', type: 'mixed', i: '5', np: '8', p: '3' }
+];
+function loadDecPreset(idx) {
+  const p = DEC_PRESETS[idx];
+  document.getElementById('decType').value = p.type;
+  document.getElementById('decSignInt').value = p.i;
+  document.getElementById('decNonPer').value = p.np;
+  document.getElementById('decPer').value = p.p;
+  updateDecConverter();
+}
+function updateDecConverter() {
+  const type = document.getElementById('decType').value;
+  const rawI = document.getElementById('decSignInt').value.trim();
+  const np = document.getElementById('decNonPer').value.replace(/\D/g, '');
+  const pe = document.getElementById('decPer').value.replace(/\D/g, '');
+  const sign = rawI.startsWith('-') ? -1 : 1;
+  const intDigits = rawI.replace(/[^0-9]/g, '') || '0';
+  const signTxt = sign < 0 ? '−' : '';
+  const box = document.getElementById('decResultBox');
+
+  if (type === 'exact') {
+    const decDigits = np || '0';
+    const allNum = Number(intDigits + decDigits);
+    const den = Math.pow(10, decDigits.length);
+    const s = simpFrac(sign * allNum, den);
+    box.innerHTML = `
+      <div><strong>Decimal exacto:</strong> <span class="math">${signTxt}${intDigits},${decDigits}</span></div>
+      <div class="step-line"><strong>Paso 1 (base 10):</strong> Numerador = todo sin coma (<span class="math">${allNum}</span>) · Denominador = <span class="math">1</span> y <span class="math">${decDigits.length}</span> cero(s) (<span class="math">${den}</span>)</div>
+      <div class="step-line"><strong>Paso 2 (irreducible):</strong> ${fmtFracHTML(sign * allNum, den)} &nbsp;(simplificado por ÷ ${gcd(allNum, den)})</div>`;
+  } else if (type === 'pure') {
+    if (!pe) { box.innerHTML = '<span style="color:var(--amber)">Escribí al menos 1 dígito periódico (bajo arquito).</span>'; return; }
+    const allNum = Number(intDigits + pe);
+    const nonPerPart = Number(intDigits);
+    const numVal = allNum - nonPerPart;
+    const den = Number('9'.repeat(pe.length));
+    box.innerHTML = `
+      <div><strong>Periódico puro:</strong> <span class="math">${signTxt}${intDigits},<span class="per">${pe}</span></span></div>
+      <div class="step-line"><strong>Paso 1 (regla de 9s):</strong> <span class="math">${signTxt}<span class="frac"><span class="num">${allNum} − ${nonPerPart}</span><span class="den">${den}</span></span> = ${signTxt}<span class="frac"><span class="num">${numVal}</span><span class="den">${den}</span></span></span></div>
+      <div class="step-line"><strong>Paso 2 (irreducible):</strong> ${fmtFracHTML(sign * numVal, den)} &nbsp;(simplificado por ÷ ${gcd(numVal, den)})</div>`;
+  } else {
+    if (!np || !pe) { box.innerHTML = '<span style="color:var(--amber)">En periódico mixto completá tanto la parte NO periódica como la periódica.</span>'; return; }
+    const allNum = Number(intDigits + np + pe);
+    const nonPerPart = Number(intDigits + np);
+    const numVal = allNum - nonPerPart;
+    const den = Number('9'.repeat(pe.length) + '0'.repeat(np.length));
+    box.innerHTML = `
+      <div><strong>Periódico mixto:</strong> <span class="math">${signTxt}${intDigits},${np}<span class="per">${pe}</span></span></div>
+      <div class="step-line"><strong>Paso 1 (restar TODA la parte no periódica "${nonPerPart}"):</strong> <span class="math">${signTxt}<span class="frac"><span class="num">${allNum} − ${nonPerPart}</span><span class="den">${den}</span></span> = ${signTxt}<span class="frac"><span class="num">${numVal}</span><span class="den">${den}</span></span></span></div>
+      <div class="step-line"><strong>Paso 2 (irreducible):</strong> ${fmtFracHTML(sign * numVal, den)} &nbsp;(simplificado por ÷ ${gcd(numVal, den)})</div>`;
+  }
+}
+
+// ==================== TALLER Q Y PROPIEDADES ====================
+const Q_EXERCISES = [
+  {
+    src: 'TP 2 · Ej. 1b (Corregido)',
+    promptHTML: '<span class="math">0,<span class="per">3</span> − (<span class="frac"><span class="num">1</span><span class="den">2</span></span> + 1) + <span class="frac"><span class="num">4</span><span class="den">3</span></span> + (−<span class="frac"><span class="num">5</span><span class="den">3</span></span>) =</span>',
+    ans: -3/2, ansText: '-3/2',
+    hint: '0,3̂ = 1/3. Adentro del paréntesis da 3/2 y el menos delante lo deja -3/2. Pasá todo a denominador 6.',
+    steps: '1/3 − 3/2 + 4/3 − 5/3 = 2/6 − 9/6 + 8/6 − 10/6 = −9/6 = <strong>−3/2</strong>.'
+  },
+  {
+    src: 'TP 2 · Ej. 2a (Corregido)',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">2</span><span class="den">30</span></span> : <span class="frac"><span class="num">4</span><span class="den">5</span></span> · (−0,9<span class="per">3</span>) =</span>',
+    ans: -7/90, ansText: '-7/90',
+    hint: 'Pasá 0,93̂ = (93−9)/90 = 84/90 = 14/15. Invertí :4/5 por ·5/4 y simplificá uno a uno.',
+    steps: '1/15 · 5/4 · (−14/15). Simplificando 5 con 15 (÷5 → 1 y 3) y 14 con 4 (÷2 → 7 y 2): (1/3)·(1/2)·(−7/15) = <strong>−7/90</strong>.'
+  },
+  {
+    src: 'TP 3 · Ej. 2 (Corregido)',
+    promptHTML: '<span class="math">−1,875 · <span class="frac"><span class="num">3</span><span class="den">70</span></span> : <span class="frac"><span class="num">5</span><span class="den">32</span></span> =</span>',
+    ans: -18/35, ansText: '-18/35',
+    hint: '−1,875 = −15/8. Invertí :5/32 → ·32/5. ¡Simplificá UNO A UNO (15 con 5; 32 con 8; 4 con 70)!',
+    steps: '−15/8 · 3/70 · 32/5 → (−3/1)·(3/70)·(4/1) → (−3/1)·(3/35)·(2/1) = <strong>−18/35</strong>.'
+  },
+  {
+    src: 'TP 3 · Ej. 3',
+    promptHTML: '<span class="math">(<span class="frac"><span class="num">1</span><span class="den">2</span></span> + 0,75) · (−<span class="frac"><span class="num">1</span><span class="den">5</span></span> + 2) − <span class="frac"><span class="num">3</span><span class="den">5</span></span> : <span class="frac"><span class="num">2</span><span class="den">5</span></span> =</span>',
+    ans: 3/4, ansText: '3/4',
+    hint: 'Separá en 2 términos en el menos de afuera. 0,75 = 3/4. Resolvé ambos paréntesis primero.',
+    steps: '(5/4)·(9/5) − (3/5)·(5/2) = 9/4 − 3/2 = 9/4 − 6/4 = <strong>3/4</strong>.'
+  },
+  {
+    src: 'TP 4 · Ej. 1a',
+    promptHTML: '<span class="math">[(<span class="frac"><span class="num">2</span><span class="den">3</span></span>)<sup>−3</sup>]<sup>2</sup> · (<span class="frac"><span class="num">2</span><span class="den">3</span></span>)<sup>8</sup> =</span>',
+    ans: 4/9, ansText: '4/9',
+    hint: 'Potencia de potencia se multiplican exponentes (-3·2 = -6). Luego producto de igual base se suman (-6+8).',
+    steps: '(2/3)⁻⁶ · (2/3)⁸ = (2/3)⁻⁶⁺⁸ = (2/3)² = <strong>4/9</strong>.'
+  },
+  {
+    src: 'TP 4 · Ej. 1b',
+    promptHTML: '<span class="math"><span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body"><span class="rad"><span class="rad-idx">4</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">4</span><span class="den">9</span></span>)<sup>6</sup></span></span></span></span> =</span>',
+    ans: 2/3, ansText: '2/3',
+    hint: 'Raíz de otra raíz multiplica índices (3·4=12). Luego simplificá índice 12 y exponente 6 dividiendo por 6.',
+    steps: '¹²√((4/9)⁶) = ¹²:⁶√((4/9)⁶:⁶) = √(4/9) = <strong>2/3</strong>.'
+  },
+  {
+    src: 'TP 4 · Ej. 2 (Corregido)',
+    promptHTML: '<span class="math">(1 + <span class="frac"><span class="num">1</span><span class="den">2</span></span>)<sup>−2</sup> + (0,<span class="per">5</span> − 1) · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body">−<span class="frac"><span class="num">8</span><span class="den">9</span></span></span></span> · <span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">1</span><span class="den">3</span></span></span></span> =</span>',
+    ans: 20/27, ansText: '20/27',
+    hint: 'T1: (3/2)⁻² = 4/9. En T2: 5/9 − 1 = −4/9, y uní las raíces cúbicas multiplicando -8/9 · 1/3.',
+    steps: '4/9 + (−4/9) · ³√(−8/27) = 4/9 + (−4/9)·(−2/3) = 4/9 + 8/27 = <strong>20/27</strong>.'
+  },
+  {
+    src: 'Hoja 76–77 · Ej. 1b',
+    promptHTML: '<span class="math"><span class="rad"><span class="rad-sym">√</span><span class="rad-body">(−2)<sup>−4</sup> + 5·<span class="frac"><span class="num">3</span><span class="den">16</span></span></span></span> + (1 − <span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>5</sup> : (−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)<sup>8</sup> · (−<span class="frac"><span class="num">1</span><span class="den">2</span></span>) =</span>',
+    ans: 5, ansText: '5',
+    hint: '(-2)⁻⁴ = 1/16. En el 2° término aplicá propiedades de igual base (-1/2)⁵ : (-1/2)⁸ · (-1/2)¹.',
+    steps: '√(1/16 + 15/16) + (−1/2)⁵⁻⁸⁺¹ = √1 + (−1/2)⁻² = 1 + 4 = <strong>5</strong>.'
+  },
+  {
+    src: 'Hoja 77 · Ej. 1d (Corregido)',
+    promptHTML: '<span class="math">−1,8 · (−3 + <span class="rad"><span class="rad-sym">√</span><span class="rad-body"><span class="frac"><span class="num">41</span><span class="den">7</span></span></span></span> : <span class="rad"><span class="rad-sym">√</span><span class="rad-body">1,75 − <span class="frac"><span class="num">2</span><span class="den">7</span></span></span></span>) − 2<sup>−2</sup> =</span>',
+    ans: 31/20, ansText: '31/20',
+    hint: '1,75 = 7/4. Adentro de la raíz: √(41/7 : 41/28) = √4 = 2 (¡no te olvides de calcular √4!). −2⁻² = −1/4.',
+    steps: '−9/5 · (−3 + 2) − 1/4 = −9/5 · (−1) − 1/4 = 9/5 − 1/4 = (36−5)/20 = <strong>31/20</strong>.'
+  },
+  {
+    src: 'Hoja 80 · Ej. 1h (Corregido)',
+    promptHTML: '<span class="math">0,<span class="per">6</span><sup>−2</sup> + <span class="rad"><span class="rad-sym">√</span><span class="rad-body">1,25 · (−<span class="frac"><span class="num">2²</span><span class="den">5</span></span> + 3) − 2<sup>−1</sup></span></span> =</span>',
+    ans: 15/4, ansText: '15/4',
+    hint: '0,6̂ = 2/3, elevado a -2 da 9/4. Adentro: −2²/5 = −4/5; sumale 3 (= 11/5), multiplicá por 5/4 y restá 1/2.',
+    steps: '(2/3)⁻² + √(5/4 · 11/5 − 1/2) = 9/4 + √(11/4 − 2/4) = 9/4 + 3/2 = <strong>15/4</strong>.'
+  }
+];
+
+const ERROR_HUNTS = [
+  {
+    title: 'Caso 1 (TP 2): 0,93̂ convertido en 31/30',
+    wrong: 'El alumno escribió: 0,93̂ = 93/90 = 31/30.',
+    opts: ['Faltó poner otro 9 abajo (990).', 'Faltó restar la parte no periódica (9): debe ser (93−9)/90 = 14/15.', 'No se puede pasar un periódico a fracción.'],
+    okIdx: 1,
+    exp: '¡Sí! La docente circuló 31/30 y marcó M. En mixtos SIEMPRE se resta la parte no periódica completa: (93−9)/90 = 84/90 = 14/15.'
+  },
+  {
+    title: 'Caso 2 (TP 3): Simplificación doble prohibida',
+    wrong: 'Al resolver −15/8 · 3/70 · 32/5, tachó el 8 (→4), el 14 (→7) y el 32 (→16) todos dividiendo por 2 en un solo paso, y obtuvo −36/35.',
+    opts: ['Dividió DOS denominadores (8 y 14) contra UN solo numerador (32).', 'Tendría que haber invertido el 15/8 también.', 'Debía simplificar sumando numeradores.'],
+    okIdx: 0,
+    exp: 'Exacto: la profe escribió "Se simplifica uno a uno". Cada división en un denominador exige dividir UNA sola vez un numerador.'
+  },
+  {
+    title: 'Caso 3 (Hoja 81 · 1a): Propiedades mal aplicadas',
+    wrong: 'Dada [(3/2) · (3/2)⁴]³ : [(3/2)⁶]², el alumno escribió (3/2)⁷ : (3/2)⁸.',
+    opts: ['Al no haber número, el exponente vale 0.', 'Sumó exponentes en vez de multiplicar (potencia de potencia) e ignoró el exponente 1 de 3/2.', 'No se puede dividir potencias de igual base.'],
+    okIdx: 1,
+    exp: 'Correcto: adentro era 1+4 = 5, luego 5·3 = 15 (no 4+3=7). En el divisor es 6·2 = 12 (no 6+2=8). Resultado real: (3/2)³ = 27/8.'
+  },
+  {
+    title: 'Caso 4 (Hoja 64 · 2c): 5,83̂ = (583 − 5)/90',
+    wrong: 'Al pasar 5,83̂ (con arquito solo sobre el 3), restó únicamente el 5.',
+    opts: ['Está perfecto, solo se resta la parte entera.', 'En mixtos se resta TODA la parte no periódica (58): (583−58)/90 = 525/90 = 35/6.', 'El denominador debería ser 99.'],
+    okIdx: 1,
+    exp: 'Exacto: tanto el entero 5 como el decimal no periódico 8 forman el 58 que queda fuera del arquito.'
+  },
+  {
+    title: 'Caso 5 (TP 4): 5/9 − 1 = +4/5',
+    wrong: 'Al hacer (0,5̂ − 1), puso 5/9 − 1 = +4/5.',
+    opts: ['Restó al revés (olvidó el signo negativo) y puso denominador 5 en vez de 9. Da −4/9.', 'En fracciones siempre queda positivo.', 'Tendría que dar 4/10.'],
+    okIdx: 0,
+    exp: '¡Muy atento! 5/9 − 9/9 = −4/9. Con ese valor correcto el ejercicio completo del TP 4 da 20/27.'
+  }
+];
+
+function renderQTab() {
+  const preWrap = document.getElementById('decPresets');
+  preWrap.innerHTML = DEC_PRESETS.map((p, i) =>
+    `<button class="btn sec sm" onclick="loadDecPreset(${i})">${p.lbl}</button>`
+  ).join('');
+  updateDecConverter();
+
+  const qWrap = document.getElementById('qExercisesWrap');
+  qWrap.innerHTML = Q_EXERCISES.map((ex, i) => `
+    <div class="ex-card">
+      <div class="ex-head">
+        <strong>Ejercicio ${i+1}</strong>
+        <span class="pill">${ex.src}</span>
+      </div>
+      <div style="font-size:1.08rem; margin:6px 0;">${ex.promptHTML}</div>
+      <div class="ex-answer-row">
+        <input type="text" id="qIn-${i}" placeholder="Ej: -7/90 o 5" onkeydown="if(event.key==='Enter')checkFracEx('q',${i})">
+        <button class="btn sm" onclick="checkFracEx('q',${i})">Comprobar</button>
+        <button class="btn sec sm" onclick="toggleHint('q',${i})">💡 Pista</button>
+        <button class="btn sec sm" onclick="toggleSol('q',${i})">📖 Paso a paso</button>
+      </div>
+      <div class="fb" id="qFb-${i}"></div>
+      <div class="sol-panel" id="qHint-${i}"><strong>Pista:</strong> ${ex.hint}</div>
+      <div class="sol-panel" id="qSol-${i}"><strong>Resolución:</strong> ${ex.steps}</div>
+    </div>
+  `).join('');
+
+  const eWrap = document.getElementById('errorHuntWrap');
+  eWrap.innerHTML = ERROR_HUNTS.map((eh, i) => `
+    <div class="check-box" data-mc="eh-${i}">
+      <strong>${eh.title}</strong><br>
+      <span style="color:#fecdd3;">${eh.wrong}</span>
+      <div class="mc-opts">
+        ${eh.opts.map((op, j) => `<button class="mc-opt" onclick="ansEH(${i},${j},this)">${op}</button>`).join('')}
+      </div>
+      <div class="fb" id="fb-eh-${i}"></div>
+    </div>
+  `).join('');
+}
+
+function ansEH(i, j, btn) {
+  const eh = ERROR_HUNTS[i];
+  const ok = j === eh.okIdx;
+  const box = btn.closest('.check-box');
+  box.querySelectorAll('.mc-opt').forEach(o => o.classList.remove('right', 'wrong'));
+  btn.classList.add(ok ? 'right' : 'wrong');
+  const fb = document.getElementById('fb-eh-' + i);
+  fb.textContent = ok ? eh.exp : 'Revisá bien: ' + eh.exp;
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  addStreak(ok);
+}
+
+// ==================== TALLER ECUACIONES EN Q ====================
+const EQ_EXERCISES = [
+  {
+    src: 'Hoja 98 · Ejemplo 1',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">3x + 1</span><span class="den">4</span></span> + <span class="frac"><span class="num">1</span><span class="den">2</span></span>x = <span class="frac"><span class="num">2</span><span class="den">5</span></span></span>',
+    kind: 'num', ans: 3/25, ansText: '3/25',
+    hint: 'Distribuí el /4: (3/4)x + 1/4 + (1/2)x = 2/5. Luego agrupá x a la izquierda.',
+    steps: '(3/4 + 1/2)x = 2/5 − 1/4 ⇒ (5/4)x = 3/20 ⇒ x = (3/20) : (5/4) = <strong>3/25</strong>.'
+  },
+  {
+    src: 'Hoja 106 · 3b (Corregida)',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">3x − 2</span><span class="den">5</span></span> = <span class="frac"><span class="num">2x − 3</span><span class="den">6</span></span></span>',
+    kind: 'num', ans: -3/8, ansText: '-3/8',
+    hint: 'Proporción cruzada: 6·(3x−2) = 5·(2x−3). ¡Cuidado al despejar 8x = −3!',
+    steps: '18x − 12 = 10x − 15 ⇒ 18x − 10x = −15 + 12 ⇒ 8x = −3 ⇒ <strong>x = −3/8</strong>.'
+  },
+  {
+    src: 'Hoja 99 · Ej. b',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">2x − 3</span><span class="den">4</span></span> = <span class="frac"><span class="num">3x + 5</span><span class="den">6</span></span></span>',
+    kind: 'empty', ansText: 'S = ∅ (No tiene solución)',
+    hint: 'Multiplicá cruzado 6(2x−3) = 4(3x+5) y fijate qué pasa con 12x.',
+    steps: '12x − 18 = 12x + 20 ⇒ 0x = 38 ⇒ 0 = 38 (Contradicción) ⇒ <strong>S = ∅</strong>.'
+  },
+  {
+    src: 'Hoja 101 · Ej. g',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">5</span><span class="den">4</span></span>(<span class="frac"><span class="num">8</span><span class="den">25</span></span>x − <span class="frac"><span class="num">6</span><span class="den">5</span></span>) = <span class="frac"><span class="num">2x − 4</span><span class="den">5</span></span> − 0,7</span>',
+    kind: 'Q', ansText: 'S = Q (Infinitas soluciones)',
+    hint: 'Distribuí 5/4 a la izquierda y distribuí el /5 a la derecha (-4/5 - 7/10 = -15/10 = -3/2).',
+    steps: '(2/5)x − 3/2 = (2/5)x − 3/2 ⇒ 0x = 0 ⇒ 0 = 0 (Identidad) ⇒ <strong>S = Q</strong>.'
+  },
+  {
+    src: 'Hoja 99/101 · Ej. h (Real)',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">2</span><span class="den">3</span></span>(<span class="frac"><span class="num">9</span><span class="den">8</span></span>x − 0,25) + <span class="frac"><span class="num">1</span><span class="den">6</span></span>x = −0,8<span class="per">3</span></span>',
+    kind: 'num', ans: -8/11, ansText: '-8/11',
+    hint: '0,25 = 1/4 y −0,83̂ = −5/6. Distribuí 2/3 sobre el paréntesis.',
+    steps: '(3/4)x − 1/6 + (1/6)x = −5/6 ⇒ (11/12)x = −5/6 + 1/6 = −2/3 ⇒ x = (−2/3):(11/12) = <strong>−8/11</strong>.'
+  },
+  {
+    src: 'Hoja 107 · Ej. 3d',
+    promptHTML: '<span class="math">0,5<span class="per">3</span> − <span class="frac"><span class="num">1</span><span class="den">5</span></span>x = <span class="frac"><span class="num">2</span><span class="den">15</span></span> − <span class="frac"><span class="num">5x − 2</span><span class="den">3</span></span></span>',
+    kind: 'num', ans: 2/11, ansText: '2/11',
+    hint: '0,53̂ = (53−5)/90 = 48/90 = 8/15. Ojo: −(5x−2)/3 = −(5/3)x + 2/3.',
+    steps: '8/15 − (1/5)x = 2/15 − (5/3)x + 2/3 ⇒ (22/15)x = 4/15 ⇒ x = 4/22 = <strong>2/11</strong>.'
+  },
+  {
+    src: 'Hoja 110 · Ej. 2a',
+    promptHTML: '<span class="math"><span class="frac"><span class="num">3x + 4</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">2</span></span> + <span class="frac"><span class="num">3</span><span class="den">4</span></span>x</span>',
+    kind: 'num', ans: -2, ansText: '-2',
+    hint: 'Distribuí (3x+4)/2 como (3/2)x + 2.',
+    steps: '(3/2)x − (3/4)x = 1/2 − 2 ⇒ (3/4)x = −3/2 ⇒ x = (−3/2) : (3/4) = <strong>−2</strong>.'
+  },
+  {
+    src: 'Hoja 111 · Problema 3b',
+    promptHTML: '<em>Problema:</em> La cuarta parte del consecutivo de un número es dos unidades menor que su tercera parte. ¿Cuál es el número?',
+    kind: 'num', ans: 27, ansText: '27',
+    hint: 'Ecuación: (x + 1)/4 = x/3 − 2.',
+    steps: '2 = x/3 − (x+1)/4 = (4x − 3x − 3)/12 ⇒ 24 = x − 3 ⇒ <strong>x = 27</strong>.'
+  },
+  {
+    src: 'Hoja 104 · Problema 2a',
+    promptHTML: '<em>Problema:</em> De un tanque lleno se sacan 2/5 y luego 3/8 del total. Si aún quedan 189 litros, ¿cuál es su capacidad (en L)?',
+    kind: 'num', ans: 840, ansText: '840',
+    hint: 'Ecuación: x − (2/5)x − (3/8)x = 189.',
+    steps: '(40−16−15)/40 · x = 189 ⇒ (9/40)x = 189 ⇒ x = 189 · 40 / 9 = <strong>840</strong>.'
+  },
+  {
+    src: 'Hoja 105 · Problema 2b',
+    promptHTML: '<em>Problema:</em> Se gastan 5/9 del dinero y luego 3/4 <strong>del resto</strong>. Si aún quedan $40, ¿cuánto dinero había al principio?',
+    kind: 'num', ans: 360, ansText: '360',
+    hint: 'Si gastó 5/9, el resto es 4/9. Entonces 3/4 de 4/9 es (3/4)·(4/9)x = (1/3)x.',
+    steps: 'x − (5/9)x − (1/3)x = 40 ⇒ (1/9)x = 40 ⇒ <strong>x = 360</strong> ($360).'
+  }
+];
+
+function renderEqTab() {
+  const wrap = document.getElementById('eqExercisesWrap');
+  wrap.innerHTML = EQ_EXERCISES.map((ex, i) => `
+    <div class="ex-card">
+      <div class="ex-head">
+        <strong>Ecuación ${i+1}</strong>
+        <span class="pill">${ex.src}</span>
+      </div>
+      <div style="font-size:1.06rem; margin:6px 0;">${ex.promptHTML}</div>
+      <div class="ex-answer-row">
+        <input type="text" id="eqIn-${i}" placeholder="Ej: 3/25, -2, vacio, Q" onkeydown="if(event.key==='Enter')checkFracEx('eq',${i})">
+        <button class="btn sm" onclick="checkFracEx('eq',${i})">Comprobar</button>
+        <button class="btn sec sm" onclick="toggleHint('eq',${i})">💡 Pista</button>
+        <button class="btn sec sm" onclick="toggleSol('eq',${i})">📖 Paso a paso</button>
+      </div>
+      <div class="fb" id="eqFb-${i}"></div>
+      <div class="sol-panel" id="eqHint-${i}"><strong>Pista:</strong> ${ex.hint}</div>
+      <div class="sol-panel" id="eqSol-${i}"><strong>Resolución:</strong> ${ex.steps}</div>
+    </div>
+  `).join('');
+}
+
+function checkFracEx(prefix, i) {
+  const arr = prefix === 'q' ? Q_EXERCISES : EQ_EXERCISES;
+  const ex = arr[i];
+  const raw = document.getElementById(`${prefix}In-${i}`).value.trim();
+  const fb = document.getElementById(`${prefix}Fb-${i}`);
+  if (!raw) {
+    fb.textContent = 'Escribí una respuesta antes de comprobar.';
+    fb.className = 'fb show bad';
+    return;
+  }
+  let ok = false;
+  const clean = raw.toLowerCase().replace(/^x\s*=\s*/, '').replace(/^s\s*=\s*/, '').replace(/\s+/g, '');
+  if (ex.kind === 'empty') {
+    ok = ['vacio', 'vacío', '∅', '{}', 'notienesolucion', 'notienesolución', 'contradiccion', 'contradicción', 'ninguna'].some(k => clean.includes(k));
+  } else if (ex.kind === 'Q') {
+    ok = clean === 'q' || clean.includes('infinita') || clean.includes('identidad') || clean.includes('todos');
+  } else {
+    const numStr = raw.replace(/^x\s*=\s*/i, '');
+    const v = parseMathNum(numStr);
+    if (v !== null && Math.abs(v - ex.ans) < 1e-6) ok = true;
+  }
+  fb.innerHTML = ok
+    ? `✅ ¡Correcto! Respuesta exacta: <strong>${ex.ansText}</strong>.`
+    : `❌ Todavía no. Revisá los signos/pasos o tocá <strong>Pista</strong>.`;
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  addStreak(ok);
+}
+
+function toggleHint(prefix, i) {
+  document.getElementById(`${prefix}Hint-${i}`).classList.toggle('show');
+}
+function toggleSol(prefix, i) {
+  document.getElementById(`${prefix}Sol-${i}`).classList.toggle('show');
+}
+
+// ==================== GRAFICADOR FUNCION LINEAL ====================
+const LINE_PRESETS = [
+  { lbl: '119a: y = (2/5)x − 1', p: 2, q: 5, r: -1, s: 1 },
+  { lbl: '119b: y = (−4/3)x + 2', p: -4, q: 3, r: 2, s: 1 },
+  { lbl: '119c: y = −2x − 1', p: -2, q: 1, r: -1, s: 1 },
+  { lbl: '119d: y = (3/2)x + 2', p: 3, q: 2, r: 2, s: 1 },
+  { lbl: '118a: y = 3x − 1', p: 3, q: 1, r: -1, s: 1 },
+  { lbl: '118b: y = −x + 4', p: -1, q: 1, r: 4, s: 1 },
+  { lbl: '118c: x − y = 5 (y = x − 5)', p: 1, q: 1, r: -5, s: 1 },
+  { lbl: '118d: 4x + 2y = −6 (y = −2x − 3)', p: -2, q: 1, r: -3, s: 1 },
+  { lbl: '117d: 3y − 2x = 7 (y = 2/3x + 7/3)', p: 2, q: 3, r: 7, s: 3 }
+];
+
+const LINE_CHALLENGES = [
+  {
+    src: 'Hoja 117d (Corregida)',
+    q: 'Dada la forma implícita 3y − 2x = 7, ¿cuánto vale la ordenada al origen b?',
+    opts: ['b = −7/3', 'b = 7/3', 'b = 7', 'b = −2/3'], ok: 1,
+    exp: '3y = 2x + 7 ⇒ y = (2/3)x + 7/3. Como el 7 positivo quedó a la derecha, b = +7/3.'
+  },
+  {
+    src: 'Hoja 118d',
+    q: 'Al despejar 4x + 2y = −6, ¿cuál es su pendiente m y raíz X₀?',
+    opts: ['m = −2 y X₀ = −3/2', 'm = 2 y X₀ = 3/2', 'm = −2 y X₀ = 3/2', 'm = −4 y X₀ = −6'], ok: 0,
+    exp: '2y = −4x − 6 ⇒ y = −2x − 3. Entonces m = −2, b = −3, y X₀ = −(−3)/(−2) = −3/2.'
+  },
+  {
+    src: 'Hoja 119a',
+    q: 'Para y = (2/5)x − 1, desde la ordenada (0; −1), ¿cómo usás la pendiente para encontrar otro punto?',
+    opts: ['Avanzo 2 a la derecha y subo 5', 'Avanzo 5 a la derecha y subo 2', 'Avanzo 5 a la derecha y bajo 1', 'Retrocedo 2 y subo 5'], ok: 1,
+    exp: 'En m = 2/5, el denominador (5) corre a la derecha y el numerador (+2) sube 2 unidades hasta (5; 1).'
+  },
+  {
+    src: 'Hoja 119b',
+    q: 'Calculá la raíz X₀ de y = (−4/3)x + 2:',
+    opts: ['X₀ = −3/2', 'X₀ = 3/2', 'X₀ = 8/3', 'X₀ = −2'], ok: 1,
+    exp: 'X₀ = −b/m = −2 / (−4/3) = +2 · (3/4) = 3/2 = 1,5. ¡Menos por menos da más!'
+  },
+  {
+    src: 'Hoja 114 · Tabla d (Corregida)',
+    q: 'Con A = {2; 4; 7; 8} y B = {1; 3; 5; 7; 9}, la relación d = {(8;1), (7;5), (4;9), (2;3)}:',
+    opts: ['No es función porque falta unicidad', 'No es función porque falta el 7 ∈ B', 'SÍ es función (cumple existencia y unicidad)', 'No es función porque está desordenada'], ok: 2,
+    exp: '¡Error detectado en Hoja 114! Cada elemento de A={2,4,7,8} aparece una sola vez con imagen única en B ⇒ SÍ es función.'
+  },
+  {
+    src: 'Hoja 119 · Ej. 1b',
+    q: 'Con A = {5; 10; 15} y B = {10; 20; 30; 40}, ¿es función R₂ = {(15; 10), (5; 20)}?',
+    opts: ['Sí, porque cada par es único', 'No, porque no cumple EXISTENCIA (falta el 10 ∈ A)', 'No, porque falta unicidad en B', 'Sí, porque sobra el 30 y 40'], ok: 1,
+    exp: 'El 10 pertenece al conjunto de partida A y no está relacionado con ningún elemento de B → falla existencia.'
+  },
+  {
+    src: 'Hoja 119 · Ej. 1d',
+    q: 'Con A = {5; 10; 15}, ¿es función R₄ = {(15; 40), (10; 40), (5; 40)}?',
+    opts: ['No, porque todos van al 40', 'Sí, porque todos en A tienen una única imagen (40)', 'No, porque no cumple existencia', 'No, porque sobran elementos en B'], ok: 1,
+    exp: '¡Sí es función constante! La unicidad exige una sola imagen por cada x ∈ A; distintos x sí pueden compartir imagen en B.'
+  },
+  {
+    src: 'Hoja 119 · Ej. 1a',
+    q: '¿Por qué NO es función R₁ = {(5; 10), (10; 30), (5; 20), (15; 40)}?',
+    opts: ['No cumple unicidad: el 5 ∈ A tiene dos imágenes (10 y 20)', 'No cumple existencia', 'El 10 no está en A', 'La pendiente es negativa'], ok: 0,
+    exp: 'El 5 aparece dos veces con distintas imágenes (10 y 20) → rompe la condición de unicidad.'
+  }
+];
+
+function setLinePreset(idx) {
+  const lp = LINE_PRESETS[idx];
+  document.getElementById('rngP').value = lp.p;
+  document.getElementById('rngQ').value = lp.q;
+  document.getElementById('rngR').value = lp.r;
+  document.getElementById('rngS').value = lp.s;
+  updateLinearPlot();
+}
+
+function updateLinearPlot() {
+  const p = Number(document.getElementById('rngP').value);
+  const q = Number(document.getElementById('rngQ').value);
+  const r = Number(document.getElementById('rngR').value);
+  const s = Number(document.getElementById('rngS').value);
+  document.getElementById('lblP').textContent = p;
+  document.getElementById('lblQ').textContent = q;
+  document.getElementById('lblR').textContent = r;
+  document.getElementById('lblS').textContent = s;
+
+  const mFrac = simpFrac(p, q);
+  const bFrac = simpFrac(r, s);
+  const m = mFrac.n / mFrac.d;
+  const b = bFrac.n / bFrac.d;
+
+  const MIN = -8, MAX = 8, W = 420, PAD = 26;
+  const toPx = x => PAD + ((x - MIN) / (MAX - MIN)) * (W - 2 * PAD);
+  const toPy = y => W - PAD - ((y - MIN) / (MAX - MIN)) * (W - 2 * PAD);
+
+  let svg = `<rect x="0" y="0" width="${W}" height="${W}" fill="#090f1d" rx="10"/>`;
+  // Grid lines
+  for (let i = MIN; i <= MAX; i++) {
+    const px = toPx(i), py = toPy(i);
+    const col = i === 0 ? '#94a3b8' : '#1e293b';
+    const sw = i === 0 ? 1.8 : 1;
+    svg += `<line x1="${px}" y1="${PAD}" x2="${px}" y2="${W-PAD}" stroke="${col}" stroke-width="${sw}"/>`;
+    svg += `<line x1="${PAD}" y1="${py}" x2="${W-PAD}" y2="${py}" stroke="${col}" stroke-width="${sw}"/>`;
+    if (i !== 0 && i % 2 === 0) {
+      svg += `<text x="${px}" y="${toPy(0)+13}" fill="#64748b" font-size="9" text-anchor="middle">${i}</text>`;
+      svg += `<text x="${toPx(0)-6}" y="${py+3}" fill="#64748b" font-size="9" text-anchor="end">${i}</text>`;
+    }
+  }
+  svg += `<text x="${W-14}" y="${toPy(0)-5}" fill="#94a3b8" font-size="11" font-weight="bold">x</text>`;
+  svg += `<text x="${toPx(0)+7}" y="20" fill="#94a3b8" font-size="11" font-weight="bold">y</text>`;
+
+  // Line clipped cleanly inside [-8, 8]
+  const pts = [];
+  const checkPt = (x, y) => {
+    if (x >= MIN - 1e-6 && x <= MAX + 1e-6 && y >= MIN - 1e-6 && y <= MAX + 1e-6) {
+      if (!pts.some(pt => Math.hypot(pt[0]-x, pt[1]-y) < 1e-4)) pts.push([x, y]);
+    }
+  };
+  checkPt(MIN, m * MIN + b);
+  checkPt(MAX, m * MAX + b);
+  if (Math.abs(m) > 1e-9) {
+    checkPt((MIN - b) / m, MIN);
+    checkPt((MAX - b) / m, MAX);
+  }
+  if (pts.length >= 2) {
+    pts.sort((a, c) => a[0] - c[0]);
+    svg += `<line x1="${toPx(pts[0][0])}" y1="${toPy(pts[0][1])}" x2="${toPx(pts[pts.length-1][0])}" y2="${toPy(pts[pts.length-1][1])}" stroke="#38bdf8" stroke-width="3"/>`;
+  }
+
+  // Slope triangle from (0, b) using simplified fraction mFrac
+  const stepX = mFrac.d;
+  const stepY = mFrac.n;
+  if (b >= MIN && b <= MAX && stepX <= MAX && (b + stepY) >= MIN && (b + stepY) <= MAX && stepY !== 0) {
+    const x0p = toPx(0), y0p = toPy(b), x1p = toPx(stepX), y1p = toPy(b + stepY);
+    svg += `<line x1="${x0p}" y1="${y0p}" x2="${x1p}" y2="${y0p}" stroke="#c084fc" stroke-width="2" stroke-dasharray="4,3"/>`;
+    svg += `<line x1="${x1p}" y1="${y0p}" x2="${x1p}" y2="${y1p}" stroke="#fb7185" stroke-width="2" stroke-dasharray="4,3"/>`;
+    svg += `<text x="${(x0p+x1p)/2}" y="${y0p + (stepY>0?13:-5)}" fill="#e9d5ff" font-size="10" font-weight="bold" text-anchor="middle">+${stepX}</text>`;
+    svg += `<text x="${x1p+5}" y="${(y0p+y1p)/2+3}" fill="#fecdd3" font-size="10" font-weight="bold">${stepY > 0 ? '+' + stepY : stepY}</text>`;
+    svg += `<circle cx="${x1p}" cy="${y1p}" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1"/>`;
+  }
+
+  // y-intercept (0, b)
+  if (b >= MIN && b <= MAX) {
+    const lblLeft = stepY !== 0;
+    const lx = lblLeft ? toPx(0) - 8 : toPx(0) + 8;
+    const anchor = lblLeft ? 'end' : 'start';
+    const ly = stepY > 0 ? toPy(b) - 7 : (stepY < 0 ? toPy(b) + 12 : toPy(b) - 7);
+    svg += `<circle cx="${toPx(0)}" cy="${toPy(b)}" r="5.5" fill="#34d399" stroke="#fff" stroke-width="1.5"/>`;
+    svg += `<text x="${lx}" y="${ly}" fill="#6ee7b7" font-size="10" font-weight="bold" text-anchor="${anchor}">(0; ${fmtFracText(r,s)})</text>`;
+  }
+
+  // Root (X0, 0)
+  let rootHTML = 'No tiene raíz (recta horizontal paralela al eje X)';
+  if (mFrac.n !== 0) {
+    const x0Frac = simpFrac(-bFrac.n * mFrac.d, bFrac.d * mFrac.n);
+    const x0Val = x0Frac.n / x0Frac.d;
+    rootHTML = `${fmtFracHTML(x0Frac.n, x0Frac.d)} <span style="color:var(--muted);">(${Number(x0Val.toFixed(2))})</span>`;
+    if (x0Val >= MIN && x0Val <= MAX) {
+      svg += `<circle cx="${toPx(x0Val)}" cy="${toPy(0)}" r="5.5" fill="#fbbf24" stroke="#fff" stroke-width="1.5"/>`;
+      svg += `<text x="${toPx(x0Val)}" y="${toPy(0)-9}" fill="#fde68a" font-size="10" font-weight="bold" text-anchor="middle">X₀=${fmtFracText(x0Frac.n,x0Frac.d)}</text>`;
+    } else {
+      rootHTML += ' <em>(fuera del rango -8..8 del gráfico)</em>';
+    }
+  } else if (bFrac.n === 0) {
+    rootHTML = 'Todos los reales (eje X)';
+  }
+
+  document.getElementById('lineSvg').innerHTML = svg;
+
+  const bTerm = bFrac.n === 0 ? '' : (bFrac.n > 0 ? ' + ' + fmtFracHTML(bFrac.n, bFrac.d) : ' − ' + fmtFracHTML(-bFrac.n, bFrac.d));
+  const mTerm = mFrac.n === 0 ? (bFrac.n === 0 ? '<span class="math">0</span>' : '') : (mFrac.n === 1 && mFrac.d === 1 ? '<span class="math">x</span>' : (mFrac.n === -1 && mFrac.d === 1 ? '<span class="math">−x</span>' : fmtFracHTML(mFrac.n, mFrac.d) + '<span class="math">x</span>'));
+  const eqDisplay = mFrac.n === 0 ? `<span class="math">y = </span>${fmtFracHTML(bFrac.n, bFrac.d)}` : `<span class="math">y = </span>${mTerm}${bTerm}`;
+
+  const tipo = mFrac.n > 0 ? '<span class="pill ok">Creciente (m &gt; 0)</span>' : (mFrac.n < 0 ? '<span class="pill urgent">Decreciente (m &lt; 0)</span>' : '<span class="pill warn">Constante (m = 0)</span>');
+  const ang = (Math.atan(m) * 180 / Math.PI).toFixed(1);
+
+  const sampleXs = [-mFrac.d, 0, mFrac.d, 2 * mFrac.d];
+  const tblCells = sampleXs.map(xv => {
+    const yn = mFrac.n * xv * bFrac.d + bFrac.n * mFrac.d;
+    const yd = mFrac.d * bFrac.d;
+    return `<tr><td style="text-align:center;"><strong>${xv}</strong></td><td style="text-align:center;">${fmtFracHTML(yn, yd)}</td></tr>`;
+  }).join('');
+
+  const infoBox = document.getElementById('lineInfoBox');
+  infoBox.innerHTML = `
+    <div style="font-size:1.15rem; margin-bottom:6px;"><strong>Ecuación:</strong> ${eqDisplay} &nbsp; ${tipo}</div>
+    <div class="step-line"><strong>Pendiente (m):</strong> ${fmtFracHTML(mFrac.n, mFrac.d)} · Ángulo α = ${ang}° · <em>Escalón:</em> → ${mFrac.d} en X, ${mFrac.n >= 0 ? '↑ +' + mFrac.n : '↓ ' + mFrac.n} en Y</div>
+    <div class="step-line"><strong>Ordenada al origen (b):</strong> ${fmtFracHTML(bFrac.n, bFrac.d)} → corta al eje Y en <strong style="color:#6ee7b7;">(0; ${fmtFracText(r, s)})</strong></div>
+    <div class="step-line"><strong>Raíz (X₀ = −b/m):</strong> ${rootHTML}</div>
+    <div style="margin-top:8px;">
+      <strong style="font-size:0.86rem; color:#7dd3fc;">Tabla de valores exactos:</strong>
+      <table class="clean" style="margin-top:4px; font-size:0.84rem;">
+        <thead><tr><th style="text-align:center;">x</th><th style="text-align:center;">y = m·x + b</th></tr></thead>
+        <tbody>${tblCells}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderLineTab() {
+  document.getElementById('linePresets').innerHTML = LINE_PRESETS.map((lp, i) =>
+    `<button class="btn sec sm" onclick="setLinePreset(${i})">${lp.lbl}</button>`
+  ).join('');
+  updateLinearPlot();
+
+  document.getElementById('lineChallengesWrap').innerHTML = LINE_CHALLENGES.map((ch, i) => `
+    <div class="check-box" data-mc="lc-${i}">
+      <div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+        <strong>Desafío ${i+1}: ${ch.q}</strong>
+        <span class="pill">${ch.src}</span>
+      </div>
+      <div class="mc-opts">
+        ${ch.opts.map((o, j) => `<button class="mc-opt" onclick="ansLC(${i},${j},this)">${o}</button>`).join('')}
+      </div>
+      <div class="fb" id="fb-lc-${i}"></div>
+    </div>
+  `).join('');
+}
+
+function ansLC(i, j, btn) {
+  const ch = LINE_CHALLENGES[i];
+  const ok = j === ch.ok;
+  const box = btn.closest('.check-box');
+  box.querySelectorAll('.mc-opt').forEach(o => o.classList.remove('right', 'wrong'));
+  btn.classList.add(ok ? 'right' : 'wrong');
+  const fb = document.getElementById('fb-lc-' + i);
+  fb.textContent = (ok ? '✅ ' : '❌ ') + ch.exp;
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  addStreak(ok);
+}
+
+// ==================== ESTADISTICA Y NOTACION CIENTIFICA (DIC.) ====================
+const STAT_PRESETS = [
+  { lbl: 'Paquetes de yerba (H.34, n=25)', data: '0,2,2,5,4,3,3,2,5,2,1,1,3,2,4,2,2,1,2,2,1,0,1,2,1' },
+  { lbl: 'Repitentes por curso (H.37, n=20)', data: '2,3,1,2,2,1,0,2,1,2,2,3,4,3,1,3,2,3,3,4' },
+  { lbl: 'Cantidad de hermanos (H.18, n=25)', data: '1,0,2,1,3,0,2,1,0,3,4,2,3,1,0,2,3,4,1,0,4,3,1,0,1' },
+  { lbl: 'Pesos en kg (H.21, n=9)', data: '98,76,85,98,81,93,78,84,90' }
+];
+const PALETTE = ['#38bdf8', '#fbbf24', '#fb7185', '#34d399', '#c084fc', '#f97316', '#a3e635', '#f472b6', '#22d3ee'];
+
+function loadStatPreset(idx) {
+  document.getElementById('statInput').value = STAT_PRESETS[idx].data;
+  renderStatsLab();
+}
+
+function renderStatsLab() {
+  const nums = document.getElementById('statInput').value
+    .split(/[\s,;]+/).map(s => Number(s.replace(',', '.'))).filter(v => Number.isFinite(v));
+  const sumDiv = document.getElementById('statSummary');
+  if (!nums.length) {
+    sumDiv.innerHTML = '<span style="color:var(--rose)">Ingresá números válidos separados por coma.</span>';
+    return;
+  }
+  const n = nums.length;
+  const sorted = [...nums].sort((a, b) => a - b);
+  const sum = sorted.reduce((a, b) => a + b, 0);
+  const mean = sum / n;
+  const me = n % 2 === 1 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
+
+  const counts = {};
+  sorted.forEach(v => { counts[v] = (counts[v] || 0) + 1; });
+  const keys = Object.keys(counts).map(Number).sort((a, b) => a - b);
+  const maxF = Math.max(...keys.map(k => counts[k]));
+  const modes = keys.filter(k => counts[k] === maxF);
+
+  sumDiv.innerHTML = `
+    <div><strong>n = ${n} datos</strong> · Ordenados: <span style="color:#94a3b8; font-size:0.86rem;">${sorted.join(', ')}</span></div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+      <span class="pill">Media (x̄) = ${sum} / ${n} = <strong>${Number(mean.toFixed(2))}</strong></span>
+      <span class="pill ok">Mediana (Me) = <strong>${Number(me.toFixed(2))}</strong></span>
+      <span class="pill warn">Moda (Mo) = <strong>${modes.join(', ')}</strong> (f = ${maxF})</span>
+    </div>
+  `;
+
+  let cumF = 0;
+  let rowsHTML = '';
+  const freqRows = keys.map((k, idx) => {
+    const f = counts[k];
+    const fr = f / n;
+    const pct = fr * 100;
+    const ang = fr * 360;
+    cumF += f;
+    rowsHTML += `<tr>
+      <td><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${PALETTE[idx % PALETTE.length]};margin-right:6px;"></span><strong>${k}</strong></td>
+      <td>${f}</td>
+      <td>${f}/${n} = ${Number(fr.toFixed(3))}</td>
+      <td>${Number(pct.toFixed(1))}%</td>
+      <td>${Math.round(ang)}°</td>
+      <td>${Number((k * f).toFixed(2))}</td>
+      <td>${cumF}</td>
+    </tr>`;
+    return { k, f, fr, pct, ang, col: PALETTE[idx % PALETTE.length] };
+  });
+
+  document.getElementById('statTableWrap').innerHTML = `
+    <table class="clean">
+      <thead><tr><th>X</th><th>f</th><th>fr = f/n</th><th>F%</th><th>α = fr·360°</th><th>x·f</th><th>F acum.</th></tr></thead>
+      <tbody>${rowsHTML}
+        <tr style="font-weight:bold; background:#0f172a;">
+          <td>Total</td><td>${n}</td><td>1</td><td>100%</td><td>360°</td><td>${Number(sum.toFixed(2))}</td><td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+  // Bar SVG
+  const bw = 420, bh = 260, pL = 38, pB = 34, pT = 20, pR = 14;
+  const chartW = bw - pL - pR, chartH = bh - pT - pB;
+  const barSlot = chartW / freqRows.length;
+  const barW = Math.min(40, barSlot * 0.65);
+  let barSvg = `<rect width="${bw}" height="${bh}" fill="#090f1d" rx="8"/>`;
+  barSvg += `<line x1="${pL}" y1="${pT}" x2="${pL}" y2="${bh-pB}" stroke="#64748b" stroke-width="1.5"/>`;
+  barSvg += `<line x1="${pL}" y1="${bh-pB}" x2="${bw-pR}" y2="${bh-pB}" stroke="#64748b" stroke-width="1.5"/>`;
+  freqRows.forEach((r, idx) => {
+    const h = (r.f / maxF) * (chartH - 12);
+    const x = pL + idx * barSlot + (barSlot - barW) / 2;
+    const y = bh - pB - h;
+    barSvg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${r.col}" rx="4"/>`;
+    barSvg += `<text x="${x + barW/2}" y="${y - 4}" fill="#e2e8f0" font-size="10" text-anchor="middle">${r.f}</text>`;
+    barSvg += `<text x="${x + barW/2}" y="${bh - pB + 14}" fill="#cbd5e1" font-size="11" font-weight="bold" text-anchor="middle">${r.k}</text>`;
+  });
+  barSvg += `<text x="${bw/2}" y="14" fill="#7dd3fc" font-size="11" font-weight="bold" text-anchor="middle">Gráfico de Barras (f)</text>`;
+  document.getElementById('barSvg').innerHTML = barSvg;
+
+  // Pie SVG
+  let pieSvg = `<rect width="420" height="260" fill="#090f1d" rx="8"/>`;
+  pieSvg += `<text x="210" y="16" fill="#7dd3fc" font-size="11" font-weight="bold" text-anchor="middle">Gráfico Circular (α = fr · 360°)</text>`;
+  const cx = 135, cy = 138, rad = 86;
+  let startAng = -Math.PI / 2;
+  freqRows.forEach((r, idx) => {
+    const slice = (r.f / n) * Math.PI * 2;
+    if (freqRows.length === 1) {
+      pieSvg += `<circle cx="${cx}" cy="${cy}" r="${rad}" fill="${r.col}"/>`;
+    } else {
+      const endAng = startAng + slice;
+      const x1 = cx + rad * Math.cos(startAng), y1 = cy + rad * Math.sin(startAng);
+      const x2 = cx + rad * Math.cos(endAng), y2 = cy + rad * Math.sin(endAng);
+      const large = slice > Math.PI ? 1 : 0;
+      pieSvg += `<path d="M ${cx} ${cy} L ${x1} ${y1} A ${rad} ${rad} 0 ${large} 1 ${x2} ${y2} Z" fill="${r.col}" stroke="#090f1d" stroke-width="1.5"/>`;
+      startAng = endAng;
+    }
+    const ly = 44 + idx * 21;
+    pieSvg += `<rect x="255" y="${ly - 10}" width="12" height="12" fill="${r.col}" rx="3"/>`;
+    pieSvg += `<text x="273" y="${ly}" fill="#e2e8f0" font-size="11">X=${r.k}: ${Math.round(r.ang)}° (${Number(r.pct.toFixed(0))}%)</text>`;
+  });
+  document.getElementById('pieSvg').innerHTML = pieSvg;
+}
+
+const SCI_EXERCISES = [
+  { src: 'Hoja 90 · 1a (Corregida)', prompt: 'Escribí en notación científica: 0,006', ans: 6e-3, ansTxt: '6·10^-3', hint: 'Es menor que 1, la coma corre 3 lugares a la derecha ⇒ exponente negativo.', steps: '0,006 = <strong>6 · 10⁻³</strong>.' },
+  { src: 'Hoja 90 · 1b', prompt: 'Escribí en notación científica: 0,00026', ans: 2.6e-4, ansTxt: '2,6·10^-4', hint: 'Debe quedar 2,6 (entre 1 y 10). Contá cuántos lugares movés la coma.', steps: '<strong>2,6 · 10⁻⁴</strong>.' },
+  { src: 'Hoja 93 · d (Corregida)', prompt: 'Resolvé en notación científica: 0,00004 / 2.000', ans: 2e-8, ansTxt: '2·10^-8', hint: '(4·10⁻⁵) / (2·10³) → al dividir se RESTAN exponentes: -5 - 3 = -8.', steps: '(4/2)·10⁻⁵⁻³ = <strong>2 · 10⁻⁸</strong>.' },
+  { src: 'Hoja 94 · b (Corregida)', prompt: 'Resolvé: (3.200 · 120) / (500 · 0,04)', ans: 1.92e4, ansTxt: '1,92·10^4', hint: '(3,2·10³ · 1,2·10²) / (5·10² · 4·10⁻²) = 0,192 · 10⁵. Normalizá 0,192.', steps: '0,192 · 10⁵ = 1,92 · 10⁻¹ · 10⁵ = <strong>1,92 · 10⁴</strong>.' },
+  { src: 'Hoja 109 · 1a', prompt: 'Resolvé: (0,000002 · 350) / (0,00007 · 0,00000004)', ans: 2.5e8, ansTxt: '2,5·10^8', hint: 'Arriba: 7·10⁻⁴. Abajo: 28·10⁻¹³. 7/28 = 0,25 y -4 - (-13) = +9.', steps: '0,25 · 10⁹ = <strong>2,5 · 10⁸</strong>.' },
+  { src: 'Hoja 109 · 1b', prompt: 'Resolvé: (1.500.000.000 · 5.000) / (0,00003 · 40.000)', ans: 6.25e12, ansTxt: '6,25·10^12', hint: '7,5/12 = 0,625; 10¹² / 10⁻¹ = 10¹³.', steps: '0,625 · 10¹³ = <strong>6,25 · 10¹²</strong>.' },
+  { src: 'TP 5 · ej. a (03/9)', prompt: 'Calculá ε (error absoluto) de 4,128 + 0,52 redondeado con ε < 0,1:', ans: 0.048, ansTxt: '0,048', hint: '4,128 + 0,52 = 4,648 ≅ 4,6. Restá |4,648 − 4,6|.', steps: 'ε = |4,648 − 4,6| = <strong>0,048</strong>.' },
+  { src: 'TP 5 · ej. c (03/9)', prompt: 'Calculá ε de 0,365 · 2,7 redondeado con ε < 0,01:', ans: 0.0045, ansTxt: '0,0045', hint: '0,365 · 2,7 = 0,9855 ≅ 0,99. Restá |0,9855 − 0,99|.', steps: 'ε = |0,9855 − 0,99| = <strong>0,0045</strong>.' }
+];
+
+function parseSciInput(raw) {
+  const s = (raw || '').trim().toLowerCase().replace(/−/g, '-').replace(/,/g, '.').replace(/\s+/g, '');
+  const m = s.match(/^(-?\d+(?:\.\d+)?)(?:\*|x|·)10\^(-?\d+)$/);
+  if (m) return Number(m[1]) * Math.pow(10, Number(m[2]));
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+function checkSciEx(i) {
+  const ex = SCI_EXERCISES[i];
+  const val = parseSciInput(document.getElementById(`sciIn-${i}`).value);
+  const fb = document.getElementById(`sciFb-${i}`);
+  if (val === null) { fb.textContent = 'Formato inválido. Ej: 6*10^-3 o 0,048'; fb.className = 'fb show bad'; return; }
+  const ok = Math.abs(val - ex.ans) <= Math.max(1e-12, Math.abs(ex.ans) * 1e-6);
+  fb.innerHTML = ok ? `✅ ¡Correcto! Respuesta: <strong>${ex.ansTxt}</strong>.` : '❌ Revisá los exponentes o el redondeo.';
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  addStreak(ok);
+}
+function renderDicTab() {
+  document.getElementById('statPresets').innerHTML = STAT_PRESETS.map((p, i) =>
+    `<button class="btn sec sm" onclick="loadStatPreset(${i})">${p.lbl}</button>`
+  ).join('');
+  renderStatsLab();
+  document.getElementById('sciExercisesWrap').innerHTML = SCI_EXERCISES.map((ex, i) => `
+    <div class="ex-card">
+      <div class="ex-head"><strong>Ejercicio ${i+1}</strong><span class="pill ok">${ex.src}</span></div>
+      <div>${ex.prompt}</div>
+      <div class="ex-answer-row">
+        <input type="text" id="sciIn-${i}" placeholder="Ej: 6*10^-3 o 0,048" onkeydown="if(event.key==='Enter')checkSciEx(${i})">
+        <button class="btn sm" onclick="checkSciEx(${i})">Comprobar</button>
+        <button class="btn sec sm" onclick="toggleHint('sci',${i})">💡 Pista</button>
+        <button class="btn sec sm" onclick="toggleSol('sci',${i})">📖 Paso a paso</button>
+      </div>
+      <div class="fb" id="sciFb-${i}"></div>
+      <div class="sol-panel" id="sciHint-${i}"><strong>Pista:</strong> ${ex.hint}</div>
+      <div class="sol-panel" id="sciSol-${i}"><strong>Resolución:</strong> ${ex.steps}</div>
+    </div>
+  `).join('');
+}
+
+// ==================== SIMULACRO Y FLASHCARDS ====================
+const SIM_2C = [
+  // 4 Q y Propiedades
+  { axis: 'Q y Propiedades', q: '¿Cuál es la fracción irreducible equivalente a 0,83̂?', opts: ['83/90', '5/6', '4/5', '7/9'], ok: 1, exp: '(83 − 8)/90 = 75/90 = 5/6.' },
+  { axis: 'Q y Propiedades', q: 'Resolvé aplicando propiedades: [(2/3)⁻³]² · (2/3)⁸', opts: ['(2/3)¹⁴', '9/4', '4/9', '16/81'], ok: 2, exp: '(2/3)⁻⁶ · (2/3)⁸ = (2/3)² = 4/9.' },
+  { axis: 'Q y Propiedades', q: 'Calculá: ³√(−8/9) · ³√(1/3)', opts: ['−2/3', '2/3', '−8/27', '−4/9'], ok: 0, exp: 'Propiedad de raíces de igual índice: ³√(−8/9 · 1/3) = ³√(−8/27) = −2/3.' },
+  { axis: 'Q y Propiedades', q: '¿Cuál es el valor exacto de −1,875 · (3/70) : (5/32)?', opts: ['−36/35', '18/35', '−18/35', '−9/70'], ok: 2, exp: '−15/8 · 3/70 · 32/5, simplificando uno a uno: −18/35.' },
+  // 4 Ecuaciones en Q
+  { axis: 'Ecuaciones en Q', q: 'Resolvé la ecuación (3x − 2)/5 = (2x − 3)/6:', opts: ['x = 3/8', 'x = −3/8', 'x = 27/8', 'No tiene solución'], ok: 1, exp: '6(3x−2) = 5(2x−3) ⇒ 18x−12 = 10x−15 ⇒ 8x = −3 ⇒ x = −3/8.' },
+  { axis: 'Ecuaciones en Q', q: 'Al resolver (2x − 3)/4 = (3x + 5)/6 se obtiene 0x = 38. ¿Cuál es el conjunto solución?', opts: ['S = {38}', 'S = {0}', 'S = Q (infinitas)', 'S = ∅ (sin solución)'], ok: 3, exp: '0 = 38 es una contradicción, por lo tanto S = ∅.' },
+  { axis: 'Ecuaciones en Q', q: '¿Cuánto vale x en (3x + 1)/4 + (1/2)x = 2/5?', opts: ['x = 3/25', 'x = 5/4', 'x = 3/20', 'x = −3/25'], ok: 0, exp: '(3/4 + 1/2)x = 2/5 − 1/4 ⇒ (5/4)x = 3/20 ⇒ x = 3/25.' },
+  { axis: 'Ecuaciones en Q', q: 'De un tanque lleno se sacan 2/5 y luego 3/8 del total. Quedan 189 L. ¿Cuál es su capacidad?', opts: ['630 L', '720 L', '840 L', '900 L'], ok: 2, exp: 'x − (2/5)x − (3/8)x = 189 ⇒ (9/40)x = 189 ⇒ x = 840 L.' },
+  // 4 Función Lineal
+  { axis: 'Función Lineal', q: 'Dada 3y − 2x = 7, su forma explícita y su ordenada al origen b son:', opts: ['y = (2/3)x − 7/3 (b=−7/3)', 'y = (2/3)x + 7/3 (b=7/3)', 'y = −(2/3)x + 7/3', 'y = 2x + 7'], ok: 1, exp: '3y = 2x + 7 ⇒ y = (2/3)x + 7/3, por lo que b = +7/3.' },
+  { axis: 'Función Lineal', q: 'Para la recta y = (2/5)x − 1, ¿cuál es su raíz X₀ y cómo se comporta?', opts: ['X₀ = −5/2 · Decreciente', 'X₀ = 5/2 · Creciente', 'X₀ = 2/5 · Creciente', 'X₀ = −2/5 · Decreciente'], ok: 1, exp: 'X₀ = −b/m = −(−1)/(2/5) = 5/2. Como m = 2/5 > 0 es creciente.' },
+  { axis: 'Función Lineal', q: 'Dada 4x + 2y = −6, indicá pendiente m, ordenada b y raíz X₀:', opts: ['m = −2, b = −3, X₀ = −3/2', 'm = 2, b = −3, X₀ = 3/2', 'm = −2, b = 3, X₀ = 3/2', 'm = 4, b = −6, X₀ = 3/2'], ok: 0, exp: '2y = −4x − 6 ⇒ y = −2x − 3 ⇒ m = −2, b = −3, X₀ = −(−3)/(−2) = −3/2.' },
+  { axis: 'Función Lineal', q: 'Con A = {5; 10; 15} y B = {10; 20; 30; 40}, ¿por qué R₂ = {(15;10), (5;20)} NO es función?', opts: ['Falta unicidad porque 15 va a 10', 'Falta existencia porque 10 ∈ A no tiene imagen', 'Sobra el 30 en B', 'Sí es función'], ok: 1, exp: 'Todo elemento de A debe estar relacionado (existencia); falta el 10 ∈ A.' }
+];
+
+const SIM_DIC = [
+  ...SIM_2C.slice(0, 3),
+  ...SIM_2C.slice(4, 7),
+  ...SIM_2C.slice(8, 11),
+  // 3 Estadística
+  { axis: 'Estadística', q: 'En 20 cursos la suma de x·f de repitentes es 44 y la mayor frecuencia es X=2 (f=7). ¿Cuál es la media x̄ y la moda?', opts: ['x̄ = 2,2 y Mo = 7', 'x̄ = 2,2 y Mo = 2', 'x̄ = 2 y Mo = 3', 'x̄ = 2,5 y Mo = 2'], ok: 1, exp: 'x̄ = 44/20 = 2,2. La moda es el valor X con mayor frecuencia: Mo = 2 (no 7!).' },
+  { axis: 'Estadística', q: 'Si una categoría tiene f = 15 sobre n = 75 espectadores, ¿cuál es su porcentaje F% y ángulo central α?', opts: ['2% y 7,2°', '20% y 72°', '15% y 54°', '25% y 90°'], ok: 1, exp: 'fr = 15/75 = 0,2 ⇒ F% = 20% y α = 0,2·360° = 72°.' },
+  { axis: 'Estadística', q: '¿Por qué no es representativa una muestra que encuesta solo a los gerentes sobre los sueldos de la empresa?', opts: ['Porque los gerentes ganan más que el resto de los empleados', 'Porque es una variable continua', 'Porque falta la moda', 'Sí es representativa'], ok: 0, exp: 'Sesga el estudio hacia sueldos altos; la muestra debe representar a todos los sectores.' },
+  // 3 Notación Científica y Error
+  { axis: 'Notación Científica / Error', q: 'Expresá 0,006 en notación científica:', opts: ['6 · 10³', '0,6 · 10⁻²', '6 · 10⁻³', '60 · 10⁻⁴'], ok: 2, exp: 'El número debe quedar entre 1 y 10 (6) y la coma corrió 3 lugares a la derecha ⇒ 6·10⁻³.' },
+  { axis: 'Notación Científica / Error', q: 'Calculá en notación científica: (4·10⁻⁵) / (2·10³)', opts: ['2 · 10⁻²', '2 · 10⁻⁸', '2 · 10⁸', '0,5 · 10⁻⁸'], ok: 1, exp: 'Al dividir potencias de 10 se restan exponentes: −5 − 3 = −8 ⇒ 2·10⁻⁸.' },
+  { axis: 'Notación Científica / Error', q: 'Si el valor exacto es 4,648 y redondeás con ε < 0,1 (a décimos), ¿cuál es el aproximado y el error ε?', opts: ['4,7 y ε=0,052', '4,6 y ε=0,048', '4,65 y ε=0,002', '4,6 y ε=0,48'], ok: 1, exp: 'Como el dígito siguiente es 4 (<5), queda 4,6. Error: |4,648 − 4,6| = 0,048.' }
+];
+
+function switchSim(t) {
+  state.simType = t;
+  document.getElementById('btnSim2c').className = t === '2c' ? 'btn' : 'btn sec';
+  document.getElementById('btnSimDic').className = t === 'dic' ? 'btn' : 'btn sec';
+  document.getElementById('simBanner').innerHTML = t === '2c'
+    ? '<strong>Simulacro Exclusivo Mañana 26–27/11:</strong> 12 preguntas de los 3 ejes del Comunicado 1 (Operaciones y Propiedades en Q + Ecuaciones en Q + Función Lineal).'
+    : '<strong>Simulacro Integrador Diciembre:</strong> 15 preguntas que cubren los 5 ejes del Comunicado 2.';
+  renderSim();
+}
+function renderSim() {
+  const qs = state.simType === '2c' ? SIM_2C : SIM_DIC;
+  const ansMap = state.simAns[state.simType];
+  document.getElementById('simWrap').innerHTML = qs.map((q, i) => `
+    <div class="q-block" id="qblk-${i}">
+      <div class="ex-head"><strong>Pregunta ${i+1}</strong><span class="pill">${q.axis}</span></div>
+      <div>${q.q}</div>
+      <div>
+        ${q.opts.map((o, j) => `<button class="q-opt ${ansMap[i] === j ? 'selected' : ''}" onclick="pickSim(${i},${j},this)">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}
+      </div>
+      <div class="fb" id="simFb-${i}"></div>
+    </div>
+  `).join('');
+  document.getElementById('simResult').textContent = '';
+}
+function pickSim(i, j, btn) {
+  state.simAns[state.simType][i] = j;
+  const blk = document.getElementById('qblk-' + i);
+  blk.querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function gradeSim() {
+  const qs = state.simType === '2c' ? SIM_2C : SIM_DIC;
+  const ansMap = state.simAns[state.simType];
+  let hits = 0;
+  qs.forEach((q, i) => {
+    const blk = document.getElementById('qblk-' + i);
+    const chosen = ansMap[i];
+    const btns = blk.querySelectorAll('.q-opt');
+    btns.forEach((b, j) => {
+      b.classList.remove('selected', 'correct-ans', 'wrong-ans');
+      if (j === q.ok) b.classList.add('correct-ans');
+      else if (j === chosen && chosen !== q.ok) b.classList.add('wrong-ans');
+    });
+    const ok = chosen === q.ok;
+    if (ok) hits++;
+    const fb = document.getElementById('simFb-' + i);
+    fb.textContent = (ok ? '✅ ¡Bien! ' : '❌ Corrección: ') + q.exp;
+    fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  });
+  const score10 = (hits / qs.length) * 10;
+  if (state.simType === '2c') { state.sim2cScore = score10; saveState(); }
+  const msg = score10 >= 8 ? '¡Excelente nivel! Estás firme.' : (score10 >= 6 ? '¡Aprobado! Repasá las que fallaste.' : 'A reforzar con los talleres y volver a intentar.');
+  document.getElementById('simResult').innerHTML = `<span style="color:${score10>=6?'var(--emerald)':'var(--rose)'};">Nota: ${score10.toFixed(1)} / 10 (${hits}/${qs.length} correctas) — ${msg}</span>`;
+}
+function resetSim() {
+  state.simAns[state.simType] = {};
+  renderSim();
+}
+
+const FLASHCARDS = [
+  { cat: '2c', q: 'Pasaje decimal periódico MIXTO', a: '(Todo sin coma − TODA la parte no periódica) / (9s por periódica + 0s por dec. no periódica). Ej: 0,93̂ = (93−9)/90 = 14/15.' },
+  { cat: '2c', q: 'Regla "uno a uno" al simplificar', a: 'Cada divisor tacha UN numerador y UN único denominador. Nunca dividas dos denominadores contra un solo numerador.' },
+  { cat: '2c', q: 'Exponente negativo (a/b)⁻ⁿ', a: 'Se invierte la fracción base y el exponente queda positivo: (b/a)ⁿ. Ej: (3/2)⁻² = 4/9.' },
+  { cat: '2c', q: 'Diferencia entre (−7)⁻² y −7⁻²', a: '(−7)⁻² = +1/49 (el paréntesis incluye al menos). −7⁻² = −1/49 (el menos queda afuera).' },
+  { cat: '2c', q: 'Potencia de otra potencia [(a/b)ⁿ]ᵐ', a: 'Se conserva la base y se MULTIPLICAN los exponentes: (a/b)ⁿ·ᵐ.' },
+  { cat: '2c', q: 'Producto de raíces de igual índice', a: 'ⁿ√(a/b) · ⁿ√(c/d) = ⁿ√(a/b · c/d). Sirve cuando cada raíz suelta no es exacta.' },
+  { cat: '2c', q: 'Raíz de otra raíz ⁿ√(ᵐ√x)', a: 'Se MULTIPLICAN los índices: ⁿ·ᵐ√x. Luego se puede simplificar índice y exponente.' },
+  { cat: '2c', q: 'Menos delante de fracción con suma/resta', a: '−(5x − 2)/3 = −(5/3)x + 2/3. ¡El signo menos invierte TODOS los signos del numerador!' },
+  { cat: '2c', q: 'Contradicción vs Identidad en ecuaciones', a: '0x = k (k≠0) ⇒ Contradicción (S = ∅, sin solución). 0x = 0 ⇒ Identidad (S = Q, infinitas soluciones).' },
+  { cat: '2c', q: 'Propiedad fundamental de proporciones', a: 'Si a/b = c/d entonces a·d = b·c (producto cruzado). Ideal cuando tenés una fracción igualada a otra.' },
+  { cat: '2c', q: 'Existencia y Unicidad (Función R: A → B)', a: 'Existencia: TODO x ∈ A tiene pareja. Unicidad: CADA x ∈ A tiene UNA SOLA imagen en B.' },
+  { cat: '2c', q: 'Ordenada al origen (b) vs Raíz (X₀)', a: 'b = corte con eje Y en (0; b). Raíz X₀ = −b/m = corte con eje X en (X₀; 0).' },
+  { cat: '2c', q: 'Crecimiento según pendiente m', a: 'm > 0 ⇒ Creciente; m < 0 ⇒ Decreciente; m = 0 ⇒ Constante. Ángulo: tg(α) = m.' },
+  { cat: 'dic', q: 'Frecuencia relativa (fr), porcentual (F%) y ángulo (α)', a: 'fr = f/n (suma 1). F% = fr·100 (suma 100%). α = fr·360° (suma 360°).' },
+  { cat: 'dic', q: 'Media (x̄), Mediana (Me) y Moda (Mo)', a: 'x̄ = ∑(x·f)/n. Mo = valor con mayor f. Me = valor central tras ordenar de menor a mayor.' },
+  { cat: 'dic', q: 'Notación científica a · 10ⁿ', a: '1 ≤ |a| < 10. Grandes → exponente positivo (1,2·10⁶). Menores que 1 → negativo (6·10⁻³).' },
+  { cat: 'dic', q: 'División de potencias en notación científica', a: '10ᴬ / 10ᴮ = 10ᴬ⁻ᴮ. Ej: 10⁻⁵ / 10³ = 10⁻⁵⁻³ = 10⁻⁸.' },
+  { cat: 'dic', q: 'Truncamiento vs Redondeo y Error Absoluto', a: 'Truncar corta directo. Redondear suma 1 si la cifra siguiente ≥ 5. ε = |exacto − aproximado|.' }
+];
+
+function filterFC(f) {
+  state.fcFilter = f;
+  renderFlashcards();
+}
+function renderFlashcards() {
+  const list = FLASHCARDS.map((c, idx) => ({ ...c, idx })).filter(c => state.fcFilter === 'all' || c.cat === state.fcFilter);
+  document.getElementById('fcWrap').innerHTML = list.map(c => {
+    const mast = !!state.fcMastered[c.idx];
+    return `<div class="fc-card ${mast ? 'mastered' : ''}" onclick="this.classList.toggle('flipped')">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;">
+          <span class="pill ${c.cat === '2c' ? 'urgent' : 'ok'}">${c.cat === '2c' ? '26–27/11' : 'Dic.'}</span>
+          <button class="btn sec sm" onclick="event.stopPropagation(); toggleFCMaster(${c.idx})">${mast ? '✅ Sabida' : 'Marcar sabida'}</button>
+        </div>
+        <strong>${c.q}</strong>
+      </div>
+      <div class="fc-back">${c.a}</div>
+    </div>`;
+  }).join('');
+}
+function toggleFCMaster(idx) {
+  if (state.fcMastered[idx]) delete state.fcMastered[idx];
+  else state.fcMastered[idx] = true;
+  saveState();
+  renderFlashcards();
+}
+
+// ==================== INIT ====================
+renderQTab();
+renderEqTab();
+renderLineTab();
+renderDicTab();
+switchSim('2c');
+renderFlashcards();
+updateKPIs();
+</script>
+</body>
+</html>
