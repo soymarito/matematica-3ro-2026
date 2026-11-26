@@ -414,6 +414,36 @@
     }
   }
 
+  /* Diccionario desde cero, arcos SVG y Ejemplos Modelo */
+  .dict-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 11px; margin: 12px 0; }
+  .dict-item {
+    background: #0f172a; border: 1px solid #334155; border-top: 3px solid var(--accent);
+    border-radius: 10px; padding: 11px 13px; font-size: 0.89rem;
+  }
+  .dict-item h4 { margin: 0 0 5px; font-size: 0.95rem; color: #7dd3fc; }
+  .arc-wrap {
+    background: #090f1d; border: 1.5px solid #334155; border-radius: 12px; padding: 12px 10px;
+    margin: 12px 0; overflow-x: auto;
+  }
+  .model-card {
+    background: linear-gradient(180deg, rgba(6, 78, 59, .24), rgba(15, 23, 42, .9));
+    border: 1.5px solid rgba(52, 211, 153, .5); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 14px;
+  }
+  .model-badge {
+    display: inline-block; background: rgba(52, 211, 153, .2); color: #a7f3d0;
+    border: 1px solid rgba(52, 211, 153, .45); border-radius: 999px;
+    padding: 2px 10px; font-size: 0.76rem; font-weight: 800; margin-bottom: 6px;
+  }
+  .cancel-a { text-decoration: line-through; text-decoration-color: #38bdf8; text-decoration-thickness: 2px; color: #94a3b8; }
+  .cancel-b { text-decoration: line-through; text-decoration-color: #34d399; text-decoration-thickness: 2px; color: #94a3b8; }
+  .new-a { color: #38bdf8; font-weight: 800; font-size: 0.88em; vertical-align: super; margin-left: 1px; }
+  .new-b { color: #34d399; font-weight: 800; font-size: 0.88em; vertical-align: super; margin-left: 1px; }
+  .ps-model {
+    border: 1.2px dashed #1e3a8a; background: #f8fafc; border-radius: 5px;
+    padding: 6px 9px; margin-bottom: 9px; font-size: 8.5pt; color: #0f172a;
+  }
+
   /* Responsive mobile override required for full screen readability */
   @media (max-width: 780px) {
     .controls-bar { position: static; }
@@ -501,56 +531,146 @@
           </tbody>
         </table>
       </div>
+
+      <div class="callout ok" style="margin-top:12px;">
+        <strong>💡 Aclaración sobre Opuestos, Anterior y Saldos con Enteros (Nivel 1 Básico):</strong><br>
+        Esos ejercicios de números enteros (<em>opuesto, anterior, deudas y sumas algebraicas</em>) <strong>NO se evalúan como tema suelto mañana</strong> (eran del Diagnóstico de marzo). Se incluyeron solo como <strong>calentamiento opcional de signos (<code>+</code> y <code>−</code>)</strong> para que no te equivoques con los signos en Fracciones (Q) y Ecuaciones. Si ya manejás bien los signos, podés ir directo a los 3 ejes de arriba.
+      </div>
     </div>
 
-    <!-- TARJETA DE IMPRESION A4 POR NIVELES -->
-    <div class="card" id="printHubCard" style="border-color: rgba(52,211,153,.45);">
-      <h2>🖨️ Imprimir Ejercicios por Nivel (Formato A4 / Guardar como PDF) <span class="pill ok">Papel y Lápiz</span></h2>
-      <p style="margin:0 0 8px;">Elegí el nivel para practicar en papel con <strong>renglones</strong>, <strong>ejes cartesianos listos para graficar</strong> y formato A4 limpio en blanco y negro (podés elegir <em>Imprimir</em> o <em>Guardar como PDF</em> en tu impresora/navegador):</p>
-      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:0.9rem; font-weight:700; color:#a7f3d0;">
-        <input type="checkbox" id="chkPrintSol" checked style="width:16px; height:16px; accent-color:var(--emerald);">
-        Incluir Hoja de Respuestas (Solucionario) en página aparte al final
-      </label>
-      <div class="print-hub-grid">
-        <div class="print-lvl-box" style="border-left:4px solid var(--emerald);">
-          <div>
-            <strong>🟢 Nivel 1 · Básico (Desde Cero)</strong>
-            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Calentamiento en Z (saldos −$850, opuesto, anterior, sumas algebraicas) + bases de Q, ecuaciones simples y 2 rectas con grilla.</div>
-          </div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button class="btn ok sm" onclick="printWorksheet('basico')">🖨️ Imprimir / PDF</button>
-            <button class="btn sec sm" onclick="previewWorksheet('basico')">👁️ Vista Previa A4</button>
-          </div>
+    <!-- PASO 0: DICCIONARIO VISUAL EN CRIOLLO DESDE CERO -->
+    <div class="card" id="paso0Diccionario" style="border-color: rgba(56,189,248,.5);">
+      <h2>🧩 Paso 0 · Diccionario Visual en Criollo (Empezá acá si te sentís perdido) <span class="pill ok">Desde Cero Absoluto</span></h2>
+      <p style="margin:0 0 8px;">Antes de meterte en cuentas largas, entendé cada palabrita suelta en <strong>2 minutos con ejemplos chiquitos</strong>. Sin vueltas ni palabras raras:</p>
+
+      <div class="dict-grid">
+        <div class="dict-item">
+          <h4>1. ¿Qué son los Números Racionales (Q)?</h4>
+          Son <strong>todos</strong> los números que se pueden escribir como fracción: enteros (<span class="math">3 = <span class="frac"><span class="num">3</span><span class="den">1</span></span></span>), fracciones (<span class="math"><span class="frac"><span class="num">2</span><span class="den">5</span></span></span>) y decimales exactos o periódicos.<br>
+          En <span class="math"><span class="frac"><span class="num">2</span><span class="den">5</span></span></span>: el de arriba (<strong>numerador</strong> = 2) dice cuántas partes agarrás; el de abajo (<strong>denominador</strong> = 5) en cuántas partes iguales se cortó el entero (nunca puede ser 0).
         </div>
-        <div class="print-lvl-box" style="border-left:4px solid var(--amber);">
-          <div>
-            <strong>🟡 Nivel 2 · Intermedio (Carpeta y TPs)</strong>
-            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Combinadas en Q con periódicos mixtos, propiedades de TP 4, proporciones, problema y 3 rectas con grilla.</div>
-          </div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button class="btn sm" onclick="printWorksheet('intermedio')">🖨️ Imprimir / PDF</button>
-            <button class="btn sec sm" onclick="previewWorksheet('intermedio')">👁️ Vista Previa A4</button>
-          </div>
+
+        <div class="dict-item">
+          <h4>2. ¿Qué es Simplificar y Fracción Irreducible?</h4>
+          <strong>Simplificar</strong> es achicar una fracción dividiendo arriba y abajo por el mismo número (no cambia cuánto vale, solo usa números más chicos).<br>
+          Es <strong>irreducible</strong> cuando ya <strong>no se puede achicar más</strong>:<br>
+          <span class="math"><span class="frac"><span class="num">6</span><span class="den">9</span></span> &nbsp;÷3&nbsp; → &nbsp;<strong><span class="frac"><span class="num">2</span><span class="den">3</span></span></strong></span> <em>(2 y 3 no comparten ningún divisor: ¡listo!)</em>
         </div>
-        <div class="print-lvl-box" style="border-left:4px solid var(--rose);">
-          <div>
-            <strong>🔴 Nivel 3 · Avanzado (Tipo Examen)</strong>
-            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Combinadas completas, ecuaciones con S=∅ y S=Q, problema con resto, despeje de rectas y existencia/unicidad.</div>
-          </div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button class="btn sm" style="background:linear-gradient(135deg,#be123c,#e11d48);border-color:#fda4af;" onclick="printWorksheet('avanzado')">🖨️ Imprimir / PDF</button>
-            <button class="btn sec sm" onclick="previewWorksheet('avanzado')">👁️ Vista Previa A4</button>
-          </div>
+
+        <div class="dict-item">
+          <h4>3. ¿Qué son Fracciones Equivalentes y Común Denominador?</h4>
+          Son fracciones distintas que representan la <strong>misma cantidad</strong> (<span class="math"><span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">2</span><span class="den">4</span></span> = <span class="frac"><span class="num">3</span><span class="den">6</span></span></span>: misma media pizza cortada en más pedazos).<br>
+          Para <strong>sumar o restar</strong>, necesitan el mismo número abajo (<em>común denominador</em>):<br>
+          <span class="math"><span class="frac"><span class="num">1</span><span class="den">2</span></span> + <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="frac"><span class="num">3</span><span class="den">6</span></span> + <span class="frac"><span class="num">2</span><span class="den">6</span></span> = <strong><span class="frac"><span class="num">5</span><span class="den">6</span></span></strong></span>
         </div>
-        <div class="print-lvl-box" style="border-left:4px solid var(--indigo);">
-          <div>
-            <strong>📚 Completo · Los 3 Niveles</strong>
-            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Pack entero de Nivel 1 + Nivel 2 + Nivel 3 ordenado por dificultad creciente + Solucionario unificado.</div>
-          </div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button class="btn sm" onclick="printWorksheet('completo')">🖨️ Imprimir Todo</button>
-            <button class="btn sec sm" onclick="previewWorksheet('completo')">👁️ Vista Previa A4</button>
-          </div>
+
+        <div class="dict-item">
+          <h4>4. ¿Qué significa el "Arquito" en los Decimales?</h4>
+          • <strong>Exacto:</strong> termina ahí (<span class="math">0,75</span>).<br>
+          • <strong>Periódico:</strong> la parte bajo el arquito se repite sin fin (<span class="math">0,<span class="per">3</span> = 0,3333...</span>).<br>
+          • <strong>Puro:</strong> todo después de la coma tiene arquito (<span class="math">2,<span class="per">3</span> = 2,333...</span>).<br>
+          • <strong>Mixto:</strong> hay cifras sin arquito y luego con arquito (<span class="math">0,9<span class="per">3</span> = 0,9333...</span>).
+        </div>
+
+        <div class="dict-item" style="border-top-color: var(--emerald);">
+          <h4>5. ¿Cómo simplificar "UNO A UNO" al multiplicar?</h4>
+          Solo en <strong>multiplicaciones</strong> podés achicar <strong>1 número de arriba</strong> con <strong>1 solo número de abajo</strong> (del mismo lado o cruzados):<br>
+          <span class="math">
+            <span class="frac"><span class="num"><span class="cancel-a">15</span><span class="new-a">3</span></span><span class="den"><span class="cancel-b">8</span><span class="new-b">2</span></span></span>
+            ·
+            <span class="frac"><span class="num"><span class="cancel-b">4</span><span class="new-b">1</span></span><span class="den"><span class="cancel-a">5</span><span class="new-a">1</span></span></span>
+            = <span class="frac"><span class="num">3 · 1</span><span class="den">2 · 1</span></span> = <strong><span class="frac"><span class="num">3</span><span class="den">2</span></span></strong>
+          </span><br>
+          <em>(Celeste: 15 y 5 ÷5 | Verde: 4 y 8 ÷4. ¡Nunca 2 de abajo contra 1 solo de arriba!)</em>
+        </div>
+
+        <div class="dict-item" style="border-top-color: var(--amber);">
+          <h4>6. Potencia, Exponente Negativo y Raíz</h4>
+          • <strong>Potencia:</strong> multiplicás la base por sí misma: <span class="math">(<span class="frac"><span class="num">2</span><span class="den">3</span></span>)<sup>2</sup> = <span class="frac"><span class="num">2</span><span class="den">3</span></span>·<span class="frac"><span class="num">2</span><span class="den">3</span></span> = <span class="frac"><span class="num">4</span><span class="den">9</span></span></span>.<br>
+          • <strong>Exponente negativo:</strong> <strong>da vuelta</strong> la fracción: <span class="math">(<span class="frac"><span class="num">3</span><span class="den">2</span></span>)<sup>−1</sup> = <span class="frac"><span class="num">2</span><span class="den">3</span></span></span>.<br>
+          • <strong>Raíz:</strong> lo contrario; busca qué número al elevarlo da lo de adentro: <span class="math">√(<span class="frac"><span class="num">4</span><span class="den">9</span></span>) = <span class="frac"><span class="num">2</span><span class="den">3</span></span></span>.
+        </div>
+
+        <div class="dict-item" style="border-top-color: var(--purple);">
+          <h4>7. ¿Qué es una Ecuación y el Conjunto Solución (S)?</h4>
+          Es una igualdad con un número tapado al que llamamos <span class="math">x</span> (la <strong>incógnita</strong>). Resolver es <strong>despejar <span class="math">x</span></strong> (dejarla sola de un lado del <code>=</code>).<br>
+          El resultado final se anota en <strong>S</strong>: único (<span class="math">S = {3}</span>), imposible (<span class="math">0 = 38 ⇒ S = ∅</span>, sin solución) o siempre cierto (<span class="math">0 = 0 ⇒ S = Q</span>, infinitas).
+        </div>
+
+        <div class="dict-item" style="border-top-color: var(--indigo);">
+          <h4>8. ¿Qué es una Función Lineal (y = m·x + b)?</h4>
+          Es una máquina que toma cada valor de <code>x</code>, hace una cuenta y da un único resultado <code>y</code>. En el gráfico siempre dibuja una <strong>línea recta</strong>:<br>
+          • <strong>m</strong> (pendiente): inclinación (sube si <code>m&gt;0</code>, baja si <code>m&lt;0</code>).<br>
+          • <strong>b</strong> (ordenada): donde corta al eje vertical Y.<br>
+          • <strong>X₀</strong> (raíz): donde corta al eje horizontal X.
+        </div>
+      </div>
+
+      <h3>🎨 ¿Cómo se dibujan los ARCOS de separación en términos? (Regla 1 de la profe)</h3>
+      <div class="arc-wrap">
+        <svg viewBox="0 0 760 185" role="img" aria-label="Diagrama visual de arcos de separación en términos" style="width:100%; max-width:760px; height:auto; display:block; margin:0 auto;">
+          <!-- Arco Termino 1 -->
+          <path d="M 42 84 Q 113 20 184 84" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+          <line x1="42" y1="84" x2="42" y2="93" stroke="#38bdf8" stroke-width="2.2"/>
+          <line x1="184" y1="84" x2="184" y2="93" stroke="#38bdf8" stroke-width="2.2"/>
+          <text x="113" y="36" fill="#7dd3fc" font-size="13" font-weight="bold" text-anchor="middle">Término 1</text>
+
+          <!-- Corte + -->
+          <text x="222" y="62" fill="#fde68a" font-size="11.5" font-weight="bold" text-anchor="middle">✂ CORTA</text>
+          <line x1="222" y1="68" x2="222" y2="85" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,3"/>
+          <circle cx="222" cy="107" r="17" fill="rgba(251,191,36,0.14)" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,3"/>
+
+          <!-- Arco Termino 2 -->
+          <path d="M 262 84 Q 393 14 524 84" fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+          <line x1="262" y1="84" x2="262" y2="93" stroke="#c084fc" stroke-width="2.2"/>
+          <line x1="524" y1="84" x2="524" y2="93" stroke="#c084fc" stroke-width="2.2"/>
+          <text x="393" y="32" fill="#e9d5ff" font-size="13" font-weight="bold" text-anchor="middle">Término 2</text>
+
+          <!-- Corte - -->
+          <text x="576" y="62" fill="#fde68a" font-size="11.5" font-weight="bold" text-anchor="middle">✂ CORTA</text>
+          <line x1="576" y1="68" x2="576" y2="85" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,3"/>
+          <circle cx="576" cy="107" r="17" fill="rgba(251,191,36,0.14)" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,3"/>
+
+          <!-- Arco Termino 3 -->
+          <path d="M 626 84 Q 664 36 702 84" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+          <line x1="626" y1="84" x2="626" y2="93" stroke="#34d399" stroke-width="2.2"/>
+          <line x1="702" y1="84" x2="702" y2="93" stroke="#34d399" stroke-width="2.2"/>
+          <text x="664" y="42" fill="#a7f3d0" font-size="13" font-weight="bold" text-anchor="middle">Término 3</text>
+
+          <!-- Expresion matematica alineada por bloques -->
+          <text x="64" y="114" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">9/5</text>
+          <text x="96" y="114" fill="#94a3b8" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">·</text>
+          <text x="142" y="114" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">( <tspan fill="#fb7185" font-weight="bold">−</tspan> 3 )</text>
+
+          <text x="222" y="115" fill="#fbbf24" font-size="25" font-weight="bold" text-anchor="middle">+</text>
+
+          <text x="290" y="114" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">19/2</text>
+          <text x="334" y="114" fill="#94a3b8" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">:</text>
+          <text x="360" y="114" fill="#fda4af" font-size="22" font-weight="bold" text-anchor="middle">(</text>
+          <text x="394" y="114" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">2/9</text>
+          <text x="434" y="115" fill="#fb7185" font-size="23" font-weight="bold" text-anchor="middle">−</text>
+          <text x="478" y="114" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">2,3</text>
+          <path d="M 480 92 Q 487 83 494 92" fill="none" stroke="#fbbf24" stroke-width="2.4" stroke-linecap="round"/>
+          <text x="512" y="114" fill="#fda4af" font-size="22" font-weight="bold" text-anchor="middle">)</text>
+
+          <text x="576" y="115" fill="#fbbf24" font-size="25" font-weight="bold" text-anchor="middle">−</text>
+
+          <text x="664" y="114" fill="#f8fafc" font-size="22" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">2</text>
+
+          <!-- Indicadores abajo: signos adentro que NO cortan -->
+          <line x1="133" y1="126" x2="133" y2="149" stroke="#fb7185" stroke-width="1.8" stroke-dasharray="3,2"/>
+          <circle cx="133" cy="107" r="10" fill="none" stroke="#fb7185" stroke-width="1.5"/>
+          <text x="133" y="167" fill="#fecdd3" font-size="11.5" font-weight="bold" text-anchor="middle">✕ NO corta (entre paréntesis)</text>
+
+          <line x1="434" y1="126" x2="434" y2="149" stroke="#fb7185" stroke-width="1.8" stroke-dasharray="3,2"/>
+          <circle cx="434" cy="107" r="11" fill="none" stroke="#fb7185" stroke-width="1.5"/>
+          <text x="434" y="167" fill="#fecdd3" font-size="11.5" font-weight="bold" text-anchor="middle">✕ NO corta (adentro del "( ... )")</text>
+        </svg>
+        <div style="font-size:0.88rem; color:#cbd5e1; margin-top:6px; padding-top:8px; border-top:1px solid #1e293b;">
+          <strong>Cómo leer este dibujo en 3 reglas fáciles:</strong><br>
+          1) Mirá de izquierda a derecha y buscá los signos <code>+</code> y <code>−</code> que están <strong>AFUERA</strong> de paréntesis y de raíces: <strong>esos son las paredes que cortan en términos</strong>.<br>
+          2) Dibujá un "techo" (arco) desde el principio hasta el primer corte, otro hasta el corte siguiente, y así hasta el final.<br>
+          3) <strong>Cada arco es una mini-cuenta aparte:</strong> se resuelve primero cada techo por separado, y recién al final (cuando te queda un solo número bajo cada arco) sumás y restás de izquierda a derecha.
         </div>
       </div>
     </div>
@@ -880,6 +1000,58 @@
       </div>
     </div>
 
+    <!-- TARJETA DE IMPRESION A4 POR NIVELES -->
+    <div class="card" id="printHubCard" style="border-color: rgba(52,211,153,.45);">
+      <h2>🖨️ Imprimir Ejercicios por Nivel (Formato A4 / Guardar como PDF) <span class="pill ok">Papel y Lápiz</span></h2>
+      <p style="margin:0 0 8px;">Elegí el nivel para practicar en papel con <strong>renglones</strong>, <strong>ejes cartesianos listos para graficar</strong>, un ejemplo resuelto arriba y formato A4 limpio en blanco y negro:</p>
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:0.9rem; font-weight:700; color:#a7f3d0;">
+        <input type="checkbox" id="chkPrintSol" checked style="width:16px; height:16px; accent-color:var(--emerald);">
+        Incluir Hoja de Respuestas (Solucionario) en página aparte al final
+      </label>
+      <div class="print-hub-grid">
+        <div class="print-lvl-box" style="border-left:4px solid var(--emerald);">
+          <div>
+            <strong>🟢 Nivel 1 · Básico (Desde Cero)</strong>
+            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Calentamiento OPCIONAL de signos en Z (saldos −$850, opuesto, anterior — NO se evalúa suelto mañana) + bases de Q, ecuaciones simples y 2 rectas con grilla.</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn ok sm" onclick="printWorksheet('basico')">🖨️ Imprimir / PDF</button>
+            <button class="btn sec sm" onclick="previewWorksheet('basico')">👁️ Vista Previa A4</button>
+          </div>
+        </div>
+        <div class="print-lvl-box" style="border-left:4px solid var(--amber);">
+          <div>
+            <strong>🟡 Nivel 2 · Intermedio (Carpeta y TPs)</strong>
+            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Combinadas en Q con periódicos mixtos, propiedades de TP 4, proporciones, problema y 3 rectas con grilla.</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn sm" onclick="printWorksheet('intermedio')">🖨️ Imprimir / PDF</button>
+            <button class="btn sec sm" onclick="previewWorksheet('intermedio')">👁️ Vista Previa A4</button>
+          </div>
+        </div>
+        <div class="print-lvl-box" style="border-left:4px solid var(--rose);">
+          <div>
+            <strong>🔴 Nivel 3 · Avanzado (Tipo Examen)</strong>
+            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Combinadas completas, ecuaciones con S=∅ y S=Q, problema con resto, despeje de rectas y existencia/unicidad.</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn sm" style="background:linear-gradient(135deg,#be123c,#e11d48);border-color:#fda4af;" onclick="printWorksheet('avanzado')">🖨️ Imprimir / PDF</button>
+            <button class="btn sec sm" onclick="previewWorksheet('avanzado')">👁️ Vista Previa A4</button>
+          </div>
+        </div>
+        <div class="print-lvl-box" style="border-left:4px solid var(--indigo);">
+          <div>
+            <strong>📚 Completo · Los 3 Niveles</strong>
+            <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">Pack entero de Nivel 1 + Nivel 2 + Nivel 3 ordenado por dificultad creciente + Solucionario unificado.</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn sm" onclick="printWorksheet('completo')">🖨️ Imprimir Todo</button>
+            <button class="btn sec sm" onclick="previewWorksheet('completo')">👁️ Vista Previa A4</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- BLOQUE DICIEMBRE COLAPSABLE -->
     <details class="diciembre-box" id="dicDetails">
       <summary>📘 Resumen Extra Intensificación Diciembre (Estadística · Notación Científica · Error Absoluto)</summary>
@@ -938,6 +1110,38 @@
 
     <div class="card">
       <h2>🧮 Práctica Guiada: Combinadas en Q y Propiedades <span class="pill urgent">10 Ejercicios Reales (TPs 2–4 y Hojas 66–81)</span></h2>
+
+      <div class="model-card">
+        <span class="model-badge">👀 EJEMPLO MODELO RESUELTO PASO A PASO (Copiá esta forma en tu hoja)</span>
+        <div class="arc-wrap" style="margin:6px 0 8px; padding:8px;">
+          <svg viewBox="0 0 760 125" role="img" aria-label="Arcos de ejemplo modelo en Taller Q" style="width:100%; max-width:700px; height:auto; display:block; margin:0 auto;">
+            <path d="M 42 74 Q 113 18 184 74" fill="none" stroke="#38bdf8" stroke-width="2.8" stroke-linecap="round"/>
+            <text x="113" y="34" fill="#7dd3fc" font-size="12.5" font-weight="bold" text-anchor="middle">Arco 1</text>
+            <path d="M 262 74 Q 393 12 524 74" fill="none" stroke="#c084fc" stroke-width="2.8" stroke-linecap="round"/>
+            <text x="393" y="30" fill="#e9d5ff" font-size="12.5" font-weight="bold" text-anchor="middle">Arco 2</text>
+            <path d="M 626 74 Q 664 32 702 74" fill="none" stroke="#34d399" stroke-width="2.8" stroke-linecap="round"/>
+            <text x="664" y="40" fill="#a7f3d0" font-size="12.5" font-weight="bold" text-anchor="middle">Arco 3</text>
+
+            <text x="113" y="104" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">9/5 · (−3)</text>
+            <text x="222" y="105" fill="#fbbf24" font-size="24" font-weight="bold" text-anchor="middle">+</text>
+            <text x="393" y="104" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">19/2 : (2/9 − 2,3)</text>
+            <path d="M 465 82 Q 471 74 477 82" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="576" y="105" fill="#fbbf24" font-size="24" font-weight="bold" text-anchor="middle">−</text>
+            <text x="664" y="104" fill="#f8fafc" font-size="21" font-family="'Cambria Math', Georgia, serif" text-anchor="middle">2</text>
+          </svg>
+        </div>
+        <div class="step-line"><strong>1° Arcos y pasar decimal periódico:</strong> <span class="math">2,<span class="per">3</span> = <span class="frac"><span class="num">23−2</span><span class="den">9</span></span> = <span class="frac"><span class="num">21</span><span class="den">9</span></span> = <span class="frac"><span class="num">7</span><span class="den">3</span></span></span>. Separo en 3 arcos en el <code>+</code> y el <code>−</code> de afuera.</div>
+        <div class="step-line"><strong>2° Resolver el paréntesis en Arco 2:</strong> <span class="math"><span class="frac"><span class="num">2</span><span class="den">9</span></span> − <span class="frac"><span class="num">7</span><span class="den">3</span></span> = <span class="frac"><span class="num">2</span><span class="den">9</span></span> − <span class="frac"><span class="num">21</span><span class="den">9</span></span> = −<span class="frac"><span class="num">19</span><span class="den">9</span></span></span>.</div>
+        <div class="step-line"><strong>3° Resolver Arco 1 e invertir división en Arco 2:</strong> <span class="math">(<span class="frac"><span class="num">9</span><span class="den">5</span></span>)·(−3) = −<span class="frac"><span class="num">27</span><span class="den">5</span></span></span> &nbsp;|&nbsp; <span class="math">(<span class="frac"><span class="num">19</span><span class="den">2</span></span>):(−<span class="frac"><span class="num">19</span><span class="den">9</span></span>) = <span class="frac"><span class="num">19</span><span class="den">2</span></span>·(−<span class="frac"><span class="num">9</span><span class="den">19</span></span>)</span>.</div>
+        <div class="step-line"><strong>4° Simplificar UNO A UNO en Arco 2:</strong> <span class="math"><span class="frac"><span class="num"><span class="cancel-a">19</span><span class="new-a">1</span></span><span class="den">2</span></span>·(−<span class="frac"><span class="num">9</span><span class="den"><span class="cancel-a">19</span><span class="new-a">1</span></span></span>) = −<span class="frac"><span class="num">9</span><span class="den">2</span></span></span>.</div>
+        <div class="step-line"><strong>5° Juntar los 3 arcos al final (común denom. 10):</strong> <span class="math">−<span class="frac"><span class="num">27</span><span class="den">5</span></span> − <span class="frac"><span class="num">9</span><span class="den">2</span></span> − 2 = <span class="frac"><span class="num">−54 − 45 − 20</span><span class="den">10</span></span> = <strong>−<span class="frac"><span class="num">119</span><span class="den">10</span></span></strong></span></div>
+        <div class="step-line" style="border-left-color: var(--amber); margin-top:7px;">
+          <strong>👀 Modelo B · Propiedades paso a paso (Regla 5 de tu profe — mostrar las cuentas chiquitas):</strong><br>
+          • <strong>Potencias:</strong> <span class="math">[(<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>−2</sup>]<sup>3</sup> · (<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>8</sup> = (<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>(−2·3)</sup> · (<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>8</sup> = (<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>(−6+8)</sup> = (<span class="frac"><span class="num">3</span><span class="den">4</span></span>)<sup>2</sup> = <strong><span class="frac"><span class="num">9</span><span class="den">16</span></span></strong></span><br>
+          • <strong>Raíces:</strong> <span class="math"><span class="rad"><span class="rad-idx">3</span><span class="rad-sym">√</span><span class="rad-body"><span class="rad"><span class="rad-idx">2</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">9</span><span class="den">16</span></span>)<sup>3</sup></span></span></span></span> = <span class="rad"><span class="rad-idx">3·2</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">9</span><span class="den">16</span></span>)<sup>3</sup></span></span> = <span class="rad"><span class="rad-idx">6:3</span><span class="rad-sym">√</span><span class="rad-body">(<span class="frac"><span class="num">9</span><span class="den">16</span></span>)<sup>3:3</sup></span></span> = √(<span class="frac"><span class="num">9</span><span class="den">16</span></span>) = <strong><span class="frac"><span class="num">3</span><span class="den">4</span></span></strong></span>
+        </div>
+      </div>
+
       <p>Escribí tu respuesta como fracción irreducible (ej: <code>-7/90</code> o <code>20/27</code>) o entero (ej: <code>5</code>). Usá las pistas si te trabás.</p>
       <div id="qExercisesWrap"></div>
     </div>
@@ -953,6 +1157,18 @@
   <section id="tab-ecuaciones" class="tab-panel">
     <div class="card">
       <h2>⚖️ Taller de Ecuaciones en Q y Problemas Verbales <span class="pill urgent">10 Ejercicios Reales (Hojas 98–111)</span></h2>
+
+      <div class="model-card">
+        <span class="model-badge">👀 EJEMPLO MODELO RESUELTO PASO A PASO (Con Verificación)</span>
+        <div style="margin:4px 0 8px;"><strong>Consigna modelo:</strong> <span class="math"><span class="frac"><span class="num">2x + 3</span><span class="den">4</span></span> − 0,5 = <span class="frac"><span class="num">1</span><span class="den">4</span></span>x + 1</span></div>
+        <div class="step-line"><strong>1° Pasar decimales a fracción irreducible:</strong> <span class="math">0,5 = <span class="frac"><span class="num">5</span><span class="den">10</span></span> = <span class="frac"><span class="num">1</span><span class="den">2</span></span></span>.</div>
+        <div class="step-line"><strong>2° Repartir el denominador <code>4</code> (distributiva):</strong> <span class="math"><span class="frac"><span class="num">2</span><span class="den">4</span></span>x + <span class="frac"><span class="num">3</span><span class="den">4</span></span> − <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span>x + 1</span> → simplifico <span class="math"><span class="frac"><span class="num">2</span><span class="den">4</span></span>=<span class="frac"><span class="num">1</span><span class="den">2</span></span></span>.</div>
+        <div class="step-line"><strong>3° Juntar las <code>x</code> a la izquierda y los números solos a la derecha (cambiando signo al cruzar <code>=</code>):</strong> <span class="math"><span class="frac"><span class="num">1</span><span class="den">2</span></span>x − <span class="frac"><span class="num">1</span><span class="den">4</span></span>x = 1 − <span class="frac"><span class="num">3</span><span class="den">4</span></span> + <span class="frac"><span class="num">1</span><span class="den">2</span></span></span></div>
+        <div class="step-line"><strong>4° Sumar/restar cada lado (común denom. 4):</strong> <span class="math">(<span class="frac"><span class="num">2−1</span><span class="den">4</span></span>)x = <span class="frac"><span class="num">4 − 3 + 2</span><span class="den">4</span></span></span> → <span class="math"><span class="frac"><span class="num">1</span><span class="den">4</span></span>x = <span class="frac"><span class="num">3</span><span class="den">4</span></span></span>.</div>
+        <div class="step-line"><strong>5° Pasar multiplicando/dividiendo sin perder el signo:</strong> <span class="math">x = <span class="frac"><span class="num">3</span><span class="den">4</span></span> : <span class="frac"><span class="num">1</span><span class="den">4</span></span> = <span class="frac"><span class="num">3</span><span class="den">4</span></span> · <span class="frac"><span class="num">4</span><span class="den">1</span></span> = <strong>3</strong> ⇒ <strong>S = {3}</strong></span></div>
+        <div class="step-line" style="border-left-color: var(--emerald);"><strong>6° Verificación (para estar 100% seguro):</strong> Reemplazo <code>x=3</code>: Izq <span class="math"><span class="frac"><span class="num">2·3+3</span><span class="den">4</span></span>−0,5 = <span class="frac"><span class="num">9</span><span class="den">4</span></span>−<span class="frac"><span class="num">2</span><span class="den">4</span></span> = <span class="frac"><span class="num">7</span><span class="den">4</span></span></span> | Der <span class="math"><span class="frac"><span class="num">1</span><span class="den">4</span></span>·3+1 = <span class="frac"><span class="num">7</span><span class="den">4</span></span></span> ✅ &nbsp;|&nbsp; <em>⚠️ Si queda <code>−3x = 6</code>, el <code>−3</code> pasa dividiendo CON su signo: <code>x = 6 : (−3) = −2</code>.</em></div>
+      </div>
+
       <p>Podés escribir fracciones como <code>3/25</code> o <code>-8/11</code>, enteros como <code>360</code>, y en casos especiales escribí <code>vacio</code> / <code>S=∅</code> (sin solución) o <code>Q</code> / <code>infinitas</code> (identidad).</p>
       <div id="eqExercisesWrap"></div>
     </div>
@@ -993,6 +1209,27 @@
 
     <div class="card">
       <h2>🧭 Desafíos de Función Lineal y Existencia / Unicidad <span class="pill">Hojas 112–119</span></h2>
+
+      <div class="model-card">
+        <span class="model-badge">👀 EJEMPLOS MODELO RESUELTOS PASO A PASO</span>
+        <div class="grid-2" style="margin-top:4px;">
+          <div class="formula-box" style="margin:0;">
+            <strong>Modelo A · Despejar, Analizar y Graficar:</strong> <span class="math">2x + 4y = 8</span>
+            <div class="step-line"><strong>1° Despejar <code>y</code>:</strong> <span class="math">4y = −2x + 8 ⇒ y = −<span class="frac"><span class="num">2</span><span class="den">4</span></span>x + <span class="frac"><span class="num">8</span><span class="den">4</span></span> ⇒ <strong>y = −<span class="frac"><span class="num">1</span><span class="den">2</span></span>x + 2</strong></span></div>
+            <div class="step-line"><strong>2° Leer <code>m</code> y <code>b</code>:</strong> <span class="math">m = −1/2</span> (negativa → <strong>Decreciente ↘</strong>), <span class="math">b = +2</span> (corta eje Y en <code>(0; 2)</code>).</div>
+            <div class="step-line"><strong>3° Raíz <code>X₀</code>:</strong> <span class="math">X₀ = −<span class="frac"><span class="num">b</span><span class="den">m</span></span> = −<span class="frac"><span class="num">2</span><span class="den">−1/2</span></span> = (−2)·(−2) = <strong>4</strong></span> (corta eje X en <code>(4; 0)</code>).</div>
+            <div class="step-line"><strong>4° Graficar en hoja:</strong> Marcás <code>(0; 2)</code> y <code>(4; 0)</code> (o desde <code>(0; 2)</code> corré 2 derecha y bajá 1) y trazás la recta con regla.</div>
+          </div>
+          <div class="formula-box" style="margin:0;">
+            <strong>Modelo B · ¿Cómo justificar Existencia y Unicidad?</strong><br>
+            Con <span class="math">A = {1; 2; 3}</span> (partida) y <span class="math">B = {10; 20}</span> (llegada):
+            <div class="step-line">• <span class="math">R₁ = {(1;10), (2;20), (3;20)}</span> → <strong>SÍ es función</strong>: todo elemento de A tiene pareja (<em>existencia</em>) y sale 1 sola vez (<em>unicidad</em>).</div>
+            <div class="step-line" style="border-left-color:var(--rose);">• <span class="math">R₂ = {(1;10), (1;20), (2;10), (3;20)}</span> → <strong>NO es función</strong>: falla <em>unicidad</em> (del <code>1</code> salen dos flechas).</div>
+            <div class="step-line" style="border-left-color:var(--rose);">• <span class="math">R₃ = {(1;10), (2;20)}</span> → <strong>NO es función</strong>: falla <em>existencia</em> (el <code>3 ∈ A</code> quedó sin imagen).</div>
+          </div>
+        </div>
+      </div>
+
       <div id="lineChallengesWrap"></div>
     </div>
   </section>
@@ -2064,10 +2301,11 @@ function toggleFCMaster(idx) {
 const PRINT_LEVELS = {
   basico: {
     title: 'GUÍA PRÁCTICA · NIVEL 1: BÁSICO (DESDE CERO)',
-    sub: 'Calentamiento con Enteros (Opuestos, Anterior, Saldos) + Bases de Q, Ecuaciones simples y Función Lineal',
+    sub: 'Calentamiento OPCIONAL de signos con Enteros (NO se evalúa suelto mañana) + Bases de Q, Ecuaciones simples y Función Lineal',
+    modelHTML: '<b>👀 Ejemplo Modelo Resuelto:</b> <b>Q:</b> <span class="math">0,<span class="per">6</span> + <span class="frac"><span class="num">1</span><span class="den">3</span></span>·<span class="frac"><span class="num">3</span><span class="den">2</span></span> = <span class="frac"><span class="num">2</span><span class="den">3</span></span> + <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">4+3</span><span class="den">6</span></span> = <b><span class="frac"><span class="num">7</span><span class="den">6</span></span></b></span> &nbsp;|&nbsp; <b>Ecuación:</b> <span class="math">x − <span class="frac"><span class="num">1</span><span class="den">4</span></span> = <span class="frac"><span class="num">3</span><span class="den">4</span></span> ⇒ x = <span class="frac"><span class="num">3</span><span class="den">4</span></span> + <span class="frac"><span class="num">1</span><span class="den">4</span></span> = <b>1</b></span>.',
     blocks: [
       {
-        sec: 'Bloque 0 · Calentamiento con Enteros (Z): Saldos, Opuestos, Anterior y Sumas Algebraicas',
+        sec: 'Bloque 0 · Calentamiento OPCIONAL de signos con Enteros (Z) — (NO se evalúa suelto mañana)',
         items: [
           { code: '0.1)', txt: 'Completá: a) Opuesto de 7 = _____ &nbsp;|&nbsp; b) Opuesto de −15 = _____ &nbsp;|&nbsp; c) Número cuyo <b>anterior</b> es −11 = _____ <i>(x − 1 = −11)</i>.', lines: 1 },
           { code: '0.2)', txt: '<b>Problema (Hoja 3 corregido):</b> Le debo $1.700 a mi mamá y tengo ahorrados $850. Plantear con enteros y calcular mi saldo.', lines: 2 },
@@ -2115,6 +2353,7 @@ const PRINT_LEVELS = {
   intermedio: {
     title: 'GUÍA PRÁCTICA · NIVEL 2: INTERMEDIO (CARPETA Y TPs)',
     sub: 'Operaciones Combinadas en Q, Propiedades de Potencias/Raíces, Ecuaciones y Rectas',
+    modelHTML: '<b>👀 Ejemplo Modelo (Arcos y pasos):</b> <span class="math"><span class="frac"><span class="num">9</span><span class="den">5</span></span>·(−3) + <span class="frac"><span class="num">19</span><span class="den">2</span></span>:(<span class="frac"><span class="num">2</span><span class="den">9</span></span>−2,<span class="per">3</span>) − 2</span> → 3 arcos (<span class="math">2,<span class="per">3</span>=7/3</span>; parént. <span class="math">−19/9</span>; invierto y tacho 19 con 19 → <span class="math">−9/2</span>) → <span class="math">−27/5 − 9/2 − 2 = <b>−119/10</b></span>. &nbsp;|&nbsp; <b>Ecuación:</b> <span class="math">(2x+3)/4 − 0,5 = (1/4)x + 1 ⇒ (1/2)x + 1/4 = (1/4)x + 1 ⇒ (1/4)x = 3/4 ⇒ <b>x = 3</b></span>.',
     blocks: [
       {
         sec: 'Bloque 1 · Operaciones Combinadas en Q y Propiedades',
@@ -2160,6 +2399,7 @@ const PRINT_LEVELS = {
   avanzado: {
     title: 'GUÍA PRÁCTICA · NIVEL 3: AVANZADO (TIPO EXAMEN)',
     sub: 'Combinadas Completas, Casos Especiales (S = ∅ y S = Q), Problemas con Resto y Rectas',
+    modelHTML: '<b>👀 Ejemplo Modelo (Propiedades y Recta):</b> <span class="math">[(3/4)<sup>−2</sup>]<sup>3</sup>·(3/4)<sup>8</sup> = (3/4)<sup>(−2·3)</sup>·(3/4)<sup>8</sup> = (3/4)<sup>(−6+8)</sup> = (3/4)<sup>2</sup> = <b>9/16</b></span>. &nbsp;|&nbsp; <b>Recta:</b> <span class="math">2x+4y=8 ⇒ 4y=−2x+8 ⇒ <b>y = −(1/2)x + 2</b></span> (m=−1/2 decrec., b=2, <span class="math">X₀ = −2/(−1/2) = <b>4</b></span>).',
     blocks: [
       {
         sec: 'Bloque 1 · Operaciones Combinadas y Propiedades Avanzadas',
@@ -2239,9 +2479,10 @@ function buildPrintSheet(lvlKey) {
         <h2>${d.title}</h2>
         <p>${d.sub}</p>
       </div>
-      <div style="font-size:8.2pt;color:#334155;border:1px solid #cbd5e1;padding:4px 8px;border-radius:4px;margin-bottom:8px;background:#f8fafc;">
+      <div style="font-size:8.2pt;color:#334155;border:1px solid #cbd5e1;padding:4px 8px;border-radius:4px;margin-bottom:6px;background:#f8fafc;">
         <strong>Recordá:</strong> Separá en términos con arcos, mostrá propiedades paso a paso y simplificá <em>uno a uno</em>. En periódicos, la barra arriba del número marca el período.
-      </div>`;
+      </div>
+      ${d.modelHTML ? `<div class="ps-model">${d.modelHTML}</div>` : ''}`;
     d.blocks.forEach(b => {
       html += `<div class="ps-sec">${b.sec}</div>`;
       b.items.forEach(it => {
